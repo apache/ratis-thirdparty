@@ -1,0 +1,23 @@
+---
+
+This product bundles protobuf-java which includes the following:
+
+Copyright 2008 Google Inc.
+
+---
+
+This product bundles gRPC which includes the following text:
+
+Copyright 2014 The gRPC Authors
+
+---
+
+This product bundles netty-all which includes the following text:
+
+Copyright 2014 The Netty Project
+
+---
+
+This product bundles Gson which includes the following text:
+
+Copyright 2008 Google Inc.

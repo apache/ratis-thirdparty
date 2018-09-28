@@ -35,9 +35,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:git://git.apache.org/incubator-ratis.git</connection>
-    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/incubator-ratis.git</developerConnection>
-    <url>https://git-wip-us.apache.org/repos/asf?p=incubator-ratis.git</url>
+    <connection>scm:git:git://git.apache.org/incubator-ratis-thirdparty.git</connection>
+    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/incubator-ratis-thirdparty.git</developerConnection>
+    <url>https://git-wip-us.apache.org/repos/asf?p=incubator-ratis-thirdparty.git</url>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
@@ -76,7 +76,6 @@
 
     <!--Version of protobuf to be shaded -->
     <shaded.protobuf.version>3.5.0</shaded.protobuf.version>
-    <shaded.protobuf-javanano.version>3.1.0</shaded.protobuf-javanano.version>
     <!--Version of grpc to be shaded -->
     <shaded.grpc.version>1.14.0</shaded.grpc.version>
     <!--Version of Netty to be shaded -->
@@ -91,11 +90,6 @@
       <groupId>com.google.protobuf</groupId>
       <artifactId>protobuf-java</artifactId>
       <version>${shaded.protobuf.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.protobuf.nano</groupId>
-      <artifactId>protobuf-javanano</artifactId>
-      <version>${shaded.protobuf-javanano.version}</version>
     </dependency>
     <dependency>
       <groupId>io.grpc</groupId>
@@ -400,12 +394,8 @@
                   <shadedPattern>${ratis.thirdparty.shaded.prefix}.com.google.gson</shadedPattern>
                 </relocation>
                 <relocation>
-                  <pattern>afu.plume</pattern>
-                  <shadedPattern>${ratis.thirdparty.shaded.prefix}.afu.plume</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>afu.org.checkerframework</pattern>
-                  <shadedPattern>${ratis.thirdparty.shaded.prefix}.afu.org.checkerframework</shadedPattern>
+                  <pattern>afu</pattern>
+                  <shadedPattern>${ratis.thirdparty.shaded.prefix}.afu</shadedPattern>
                 </relocation>
                 <relocation>
                   <pattern>org.checkerframework</pattern>
@@ -439,10 +429,8 @@
               </artifactSet>
               <!-- Pick up any LICENSE/NOTICE files from our dependencies -->
               <transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer" />
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer">
-                  <addHeader>false</addHeader>
-                </transformer>
+                <!-- There are transformers for LICENSE and NOTICE, but none of our dependencies have proper upstream
+                     L&N files, so we can just manage it ourselves with less pain and more correctness. -->
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
               </transformers>
             </configuration>
