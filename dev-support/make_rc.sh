@@ -80,7 +80,8 @@ repodir=`cd ${repodir} > /dev/null; pwd`
 mkdir "${archivedir}"
 archivedir=`cd ${archivedir} > /dev/null; pwd`
 artifactid=$(mvnGet project.artifactId)
-version=$(mvnGet project.version)
+# Need to include "incubating" in the artifact
+version="$(mvnGet project.version)-incubating"
 
 # Make sure to clean up all state before building the src-tarball
 mvnRun clean

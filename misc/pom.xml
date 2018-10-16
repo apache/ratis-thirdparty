@@ -16,13 +16,13 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.ratis</groupId>
-    <artifactId>ratis-thirdparty-parent</artifactId>
+    <artifactId>ratis-thirdparty</artifactId>
     <version>0.1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>ratis-thirdparty</artifactId>
-  <name>Apache Ratis Thirdparty</name>
+  <artifactId>ratis-thirdparty-misc</artifactId>
+  <name>Apache Ratis Thirdparty Miscellaneous</name>
   <packaging>jar</packaging>
-  <description>Thirdparty dependencies for Apache Ratis</description>
+  <description>Miscellaneous thirdparty dependencies for Apache Ratis</description>
   <dependencies>
     <dependency>
       <groupId>com.google.protobuf</groupId>
