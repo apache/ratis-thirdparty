@@ -84,7 +84,7 @@ artifactid=$(mvnGet project.artifactId)
 version="$(mvnGet project.version)-incubating"
 
 # Make sure to clean up all state before building the src-tarball
-mvnRun clean
+mvnFun clean
 
 # Generate source tar.gz into archive
 git archive --format=tar.gz --output="${archivedir}/${artifactid}-${version}-src.tar.gz" --prefix="${artifactid}-${version}/" HEAD
