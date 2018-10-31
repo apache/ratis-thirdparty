@@ -97,17 +97,16 @@ echo
 echo "Generated artifacts successfully."
 ls -l ${archivedir}
 echo
-echo "Check the content of ${archivedir}."
+echo "Check the content of ${archivedir}"
 echo "If good, sign and push to dist.apache.org"
 echo "  cd ${archivedir}"
 echo '  for i in *.tar.gz; do echo $i; gpg --print-mds $i > $i.mds ; done'
 echo '  for i in *.tar.gz; do echo $i; gpg --print-md SHA512 $i > $i.sha ; done'
 echo '  for i in *.tar.gz; do echo $i; gpg --armor --output $i.asc --detach-sig $i ; done'
-echo "  rsync -av ${archivedir}/*.gz ${archivedir}/*.mds ${archivedir}/*.asc ~/repos/dist-dev/${artifactid}-VERSION/"
 echo
 echo "Check the content deployed to maven."
 echo "If good, close the repo and record links of temporary staging repo"
-echo "  MAVEN_OPTS=\"${mvnopts}\" ${mvn} deploy -DskipTests -Papache-release -Dmaven.repo.local=${repodir}"
+echo "  ${mvn} deploy -DskipTests -Papache-release -Dmaven.repo.local=${repodir}"
 echo
 echo "If all good tag the RC"
 echo
