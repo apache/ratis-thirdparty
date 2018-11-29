@@ -65,6 +65,11 @@
       <version>2.8.2</version>
     </dependency>
     <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-tcnative-boringssl-static</artifactId>
+      <version>${shaded.netty.tcnative.version}</version>
+    </dependency>
+    <dependency>
       <groupId>io.opencensus</groupId>
       <artifactId>opencensus-api</artifactId>
       <version>${io.opencensus.version}</version>
@@ -155,13 +160,24 @@
                   <shadedPattern>${ratis.thirdparty.shaded.prefix}.org.checkerframework</shadedPattern>
                 </relocation>
               </relocations>
+              <filters>
+                <!-- Filter unshaded netty_tcnative libs -->
+                <filter>
+                  <artifact>io.netty:netty-tcnative-boringssl-static</artifact>
+                  <excludes>
+                    <exclude>META-INF/native/libnetty_tcnative_linux_x86_64.so</exclude>
+                    <exclude>META-INF/native/netty_tcnative_windows_x86_64.dll</exclude>
+                    <exclude>META-INF/native/libnetty_tcnative_osx_x86_64.jnilib</exclude>
+                  </excludes>
+                </filter>
+              </filters>
               <artifactSet>
                 <includes>
                   <!-- Package all listed dependencies -->
                   <include>*:*</include>
                 </includes>
                 <excludes>
-                  <!-- Remove ransitive stuff we don't need coming from google deps -->
+                  <!-- Remove transitive stuff we don't need coming from google deps -->
                   <exclude>com.google.code.findbugs:jsr305</exclude>
                   <exclude>com.google.errorprone:error_prone_annotations</exclude>
                   <exclude>com.google.j2objc:j2objc-annotations</exclude>
@@ -186,6 +202,56 @@
                      L&N files, so we can just manage it ourselves with less pain and more correctness. -->
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
               </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <execution>
+            <id>unpack-dependencies</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <includes>**/META-INF/native/*</includes>
+              <outputDirectory>${project.build.directory}/classes/</outputDirectory>
+              <overWriteReleases>true</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.coderplus.maven.plugins</groupId>
+        <artifactId>copy-rename-maven-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <id>rename-file</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>rename</goal>
+            </goals>
+            <configuration>
+              <fileSets>
+                <fileSet>
+                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_tcnative_linux_x86_64.so</sourceFile>
+                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_tcnative_linux_x86_64.so</destinationFile>
+                </fileSet>
+                <fileSet>
+                  <sourceFile>${project.build.directory}/classes/META-INF/native/netty_tcnative_windows_x86_64.dll</sourceFile>
+                  <destinationFile>${project.build.directory}/classes/META-INF/native/${ratis.thirdparty.shaded.native.prefix}netty_tcnative_windows_x86_64.dll</destinationFile>
+                </fileSet>
+                <fileSet>
+                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_tcnative_osx_x86_64.jnilib</sourceFile>
+                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_tcnative_osx_x86_64.jnilib</destinationFile>
+                </fileSet>
+              </fileSets>
             </configuration>
           </execution>
         </executions>
