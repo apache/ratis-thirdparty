@@ -101,7 +101,7 @@ echo "Check the content of ${archivedir}"
 echo "If good, sign and push to dist.apache.org"
 echo "  cd ${archivedir}"
 echo '  for i in *.tar.gz; do echo $i; gpg --print-mds $i > $i.mds ; done'
-echo '  for i in *.tar.gz; do echo $i; gpg --print-md SHA512 $i > $i.sha ; done'
+echo '  for i in *.tar.gz; do echo $i; gpg --print-md SHA512 $i > $i.sha512 ; done'
 echo '  for i in *.tar.gz; do echo $i; gpg --armor --output $i.asc --detach-sig $i ; done'
 echo
 echo "Check the content deployed to maven."
