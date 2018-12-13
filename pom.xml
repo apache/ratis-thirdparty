@@ -22,7 +22,7 @@
   </parent>
   <artifactId>ratis-thirdparty</artifactId>
   <groupId>org.apache.ratis</groupId>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>0.3.0-SNAPSHOT</version>
   <name>Apache Ratis Thirdparty</name>
   <packaging>pom</packaging>
   <description>Thirdparty dependencies for Apache Ratis</description>
