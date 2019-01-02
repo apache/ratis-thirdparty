@@ -31,6 +31,7 @@
   <modules>
     <module>misc</module>
     <module>hadoop</module>
+    <module>test</module>
   </modules>
   <licenses>
     <license>
@@ -63,6 +64,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <java.min.version>${maven.compiler.source}</java.min.version>
     <maven.min.version>3.3.9</maven.min.version>
+    <protobuf-maven-plugin.version>0.5.1</protobuf-maven-plugin.version>
 
     <!--Version of protobuf to be shaded -->
     <shaded.protobuf.version>3.5.0</shaded.protobuf.version>
@@ -228,11 +230,9 @@
             <pomFileName>pom.xml</pomFileName>
           </configuration>
         </plugin>
-
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
-          <version>${apache-rat-plugin.version}</version>
           <!-- target/ should get picked up from Apache parent pom.. -->
           <configuration>
             <!-- Lets us define more exclusions in child-modules without overriding these -->
@@ -245,6 +245,20 @@
           <groupId>org.apache.felix</groupId>
           <artifactId>maven-bundle-plugin</artifactId>
           <version>${maven-bundle-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.xolstice.maven.plugins</groupId>
+          <artifactId>protobuf-maven-plugin</artifactId>
+          <version>${protobuf-maven-plugin.version}</version>
+          <configuration>
+            <protocArtifact>
+              com.google.protobuf:protoc:${shaded.protobuf.version}:exe:${os.detected.classifier}
+            </protocArtifact>
+            <!-- Place these in a location that compiler-plugin is already looking -->
+            <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
+            <!-- With multiple executions, this must be `false` otherwise we wipe out the previous execution -->
+            <clearOutputDirectory>false</clearOutputDirectory>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
