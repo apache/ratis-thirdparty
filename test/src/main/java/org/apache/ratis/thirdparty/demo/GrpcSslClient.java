@@ -83,7 +83,7 @@ public class GrpcSslClient {
       LOG.trace("Greeting: " + response.getMessage());
       return response.getMessage();
     } catch (StatusRuntimeException e) {
-      LOG.warn("RPC failed: {0}", e.getStatus());
+      LOG.warn("RPC failed: {0}", e.getStatus(), e);
       return StringUtils.EMPTY;
     }
   }
