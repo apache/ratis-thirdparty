@@ -67,13 +67,13 @@
     <protobuf-maven-plugin.version>0.5.1</protobuf-maven-plugin.version>
 
     <!--Version of protobuf to be shaded -->
-    <shaded.protobuf.version>3.10.0</shaded.protobuf.version>
+    <shaded.protobuf.version>3.11.0</shaded.protobuf.version>
     <!--Version of grpc to be shaded -->
-    <shaded.grpc.version>1.24.0</shaded.grpc.version>
+    <shaded.grpc.version>1.28.1</shaded.grpc.version>
     <!--Version of Netty to be shaded -->
-    <shaded.netty.version>4.1.46.Final</shaded.netty.version>
+    <shaded.netty.version>4.1.48.Final</shaded.netty.version>
     <!--Version of tcnative to be shaded -->
-    <shaded.netty.tcnative.version>2.0.25.Final</shaded.netty.tcnative.version>
+    <shaded.netty.tcnative.version>2.0.28.Final</shaded.netty.tcnative.version>
 
     <io.opencensus.version>0.21.0</io.opencensus.version>
     <ratis.thirdparty.shaded.prefix>org.apache.ratis.thirdparty</ratis.thirdparty.shaded.prefix>
