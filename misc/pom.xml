@@ -47,7 +47,7 @@
     <dependency>
       <groupId>com.google.flatbuffers</groupId>
       <artifactId>flatbuffers-java-grpc</artifactId>
-      <version>1.11.0</version>
+      <version>${shaded.flatbuffers.version}</version>
     </dependency>
     <dependency>
       <groupId>io.grpc</groupId>
