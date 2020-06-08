@@ -73,6 +73,8 @@
     <shaded.netty.version>4.1.48.Final</shaded.netty.version>
     <!--Version of tcnative to be shaded -->
     <shaded.netty.tcnative.version>2.0.28.Final</shaded.netty.tcnative.version>
+    <!--Version of flatbuffers to be shaded -->
+    <shaded.flatbuffers.version>1.12.0</shaded.flatbuffers.version>
 
     <io.opencensus.version>0.21.0</io.opencensus.version>
     <ratis.thirdparty.shaded.prefix>org.apache.ratis.thirdparty</ratis.thirdparty.shaded.prefix>
