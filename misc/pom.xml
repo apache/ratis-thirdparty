@@ -40,16 +40,6 @@
       <version>${shaded.grpc.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.google.flatbuffers</groupId>
-      <artifactId>flatbuffers-java</artifactId>
-      <version>${shaded.flatbuffers.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.flatbuffers</groupId>
-      <artifactId>flatbuffers-java-grpc</artifactId>
-      <version>${shaded.flatbuffers.version}</version>
-    </dependency>
-    <dependency>
       <groupId>io.grpc</groupId>
       <artifactId>grpc-stub</artifactId>
       <version>${shaded.grpc.version}</version>
@@ -147,10 +137,6 @@
                 <relocation>
                   <pattern>io.grpc</pattern>
                   <shadedPattern>${ratis.thirdparty.shaded.prefix}.io.grpc</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>com.google.flatbuffers</pattern>
-                  <shadedPattern>${ratis.thirdparty.shaded.prefix}.com.google.flatbuffers</shadedPattern>
                 </relocation>
                 <relocation>
                   <pattern>io.netty</pattern>
