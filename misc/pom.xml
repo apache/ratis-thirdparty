@@ -208,7 +208,7 @@
             </goals>
             <configuration>
               <includeGroupIds>io.netty</includeGroupIds>
-              <includeArtifactIds>netty-tcnative-boringssl-static</includeArtifactIds>
+              <includeArtifactIds>netty-tcnative-boringssl-static, netty-all</includeArtifactIds>
               <includes>**/META-INF/native/*</includes>
               <outputDirectory>${project.build.directory}/classes/</outputDirectory>
               <overWriteReleases>true</overWriteReleases>
@@ -242,6 +242,14 @@
                 <fileSet>
                   <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_tcnative_osx_x86_64.jnilib</sourceFile>
                   <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_tcnative_osx_x86_64.jnilib</destinationFile>
+                </fileSet>
+                <fileSet>
+                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_transport_native_epoll_x86_64.so</sourceFile>
+                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_transport_native_epoll_x86_64.so</destinationFile>
+                </fileSet>
+                <fileSet>
+                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_transport_native_kqueue_x86_64.jnilib</sourceFile>
+                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_transport_native_kqueue_x86_64.jnilib</destinationFile>
                 </fileSet>
               </fileSets>
             </configuration>
