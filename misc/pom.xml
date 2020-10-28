@@ -38,6 +38,12 @@
     </dependency>
     <dependency>
       <groupId>io.grpc</groupId>
+      <artifactId>protoc-gen-grpc-java</artifactId>
+      <version>${shaded.grpc.version}</version>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
       <artifactId>grpc-stub</artifactId>
     </dependency>
     <dependency>
