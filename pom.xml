@@ -137,11 +137,6 @@
         <version>${shaded.grpc.version}</version>
       </dependency>
       <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>protoc-gen-grpc-java</artifactId>
-        <version>${shaded.grpc.version}</version>
-      </dependency>
-      <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty-all</artifactId>
         <version>${shaded.netty.version}</version>
