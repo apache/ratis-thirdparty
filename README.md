@@ -16,10 +16,10 @@
 
 All bundled thirdparty dependencies are centralized in the *ratis-thirdparty* module
 and the *ratis-thirdparty-hadoop* module.
-These modules are located in a separated repository (https://github.com/apache/incubator-ratis-thirdparty)
-but not attached to the core Apache Ratis repository (https://git-wip-us.apache.org/repos/asf?p=incubator-ratis.git)
+These modules are located in a separated repository (https://github.com/apache/ratis-thirdparty)
+but not attached to the core Apache Ratis repository (https://git-wip-us.apache.org/repos/asf?p=ratis.git)
 as they only need to change when one of these dependencies are changed.
 All dependencies included in ratis-thirdparty/ratis-thirdparty-hadoop
 must be relocated to a different package to ensure no downstream classpath pollution.
 
-See also: https://github.com/apache/incubator-ratis/blob/master/BUILDING.md
+See also: https://github.com/apache/ratis/blob/master/BUILDING.md
