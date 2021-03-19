@@ -34,14 +34,15 @@ public class GrpcTest {
 
   private final static Logger LOG = LoggerFactory.getLogger(GrpcTest.class);
   @Test
-  public void testClientServer() throws InterruptedException {
+  public void testClientServer() throws IOException, InterruptedException {
+    GrpcServer server = new GrpcServer(50001);
+    server.start();
+
     Thread serverThread = new Thread(() -> {
-      GrpcServer server = new GrpcServer(50001);
       try {
-        server.start();
         server.blockUntilShutdown();
-      } catch (InterruptedException | IOException e) {
-        e.printStackTrace();
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
       }
     });
     serverThread.start();
