@@ -53,7 +53,7 @@ public class GrpcTest {
       String user = "testuser";
       String response = client.greet(user);
       LOG.info("Greet result: {}", response);
-      Assert.assertTrue(response.equals("Hello " + user));
+      Assert.assertEquals("Hello " + user, response);
     } finally {
       client.shutdown();
     }
