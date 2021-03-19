@@ -40,20 +40,21 @@ public class GrpcSslTest {
 
   @Test
   public void testSslClientServer() throws InterruptedException, IOException {
+    GrpcSslServerConfig sslServerConf =
+        new GrpcSslServerConfig(
+            getResource("ssl/server.pem"),
+            getResource("ssl/server.crt"),
+            getResource("ssl/client.crt"),
+            true,
+            false);
+    GrpcSslServer server = new GrpcSslServer(port, sslServerConf);
+    server.start();
+
     Thread serverThread = new Thread(() -> {
-      GrpcSslServerConfig sslServerConf =
-          new GrpcSslServerConfig(
-              getResource("ssl/server.pem"),
-              getResource("ssl/server.crt"),
-              getResource("ssl/client.crt"),
-              true,
-              false);
-      GrpcSslServer server = new GrpcSslServer(port, sslServerConf);
       try {
-        server.start();
         server.blockUntilShutdown();
-      } catch (InterruptedException | IOException e) {
-        e.printStackTrace();
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
       }
     });
     serverThread.start();
@@ -72,7 +73,7 @@ public class GrpcSslTest {
       String user = "testuser";
       String response = client.greet(user);
       LOG.info("Greet result: {}", response);
-      Assert.assertTrue(response.equals("Hello " + user));
+      Assert.assertEquals("Hello " + user, response);
     } finally {
       client.shutdown();
     }
