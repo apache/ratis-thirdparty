@@ -24,7 +24,7 @@
   <name>Apache Ratis Thirdparty Test</name>
   <packaging>jar</packaging>
   <description>Miscellaneous tests for Apache Ratis Thirdparty Jar</description>
-  <url>https://github.com/apache/incubator-ratis-thirdparty</url>
+  <url>https://github.com/apache/ratis-thirdparty</url>
 
   <dependencies>
     <dependency>
