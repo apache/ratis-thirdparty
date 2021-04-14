@@ -74,9 +74,9 @@
     <!--Version of grpc to be shaded -->
     <shaded.grpc.version>1.33.0</shaded.grpc.version>
     <!--Version of Netty to be shaded -->
-    <shaded.netty.version>4.1.60.Final</shaded.netty.version>
+    <shaded.netty.version>4.1.63.Final</shaded.netty.version>
     <!--Version of tcnative to be shaded -->
-    <shaded.netty.tcnative.version>2.0.36.Final</shaded.netty.tcnative.version>
+    <shaded.netty.tcnative.version>2.0.38.Final</shaded.netty.tcnative.version>
 
     <!-- third party library versions -->
     <commons-lang3.version>3.8.1</commons-lang3.version>
