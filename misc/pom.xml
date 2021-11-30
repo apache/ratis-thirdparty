@@ -154,9 +154,20 @@
                 <filter>
                   <artifact>io.netty:netty-tcnative-boringssl-static</artifact>
                   <excludes>
+                    <exclude>META-INF/native/libnetty_tcnative_linux_aarch_64.so</exclude>
                     <exclude>META-INF/native/libnetty_tcnative_linux_x86_64.so</exclude>
                     <exclude>META-INF/native/netty_tcnative_windows_x86_64.dll</exclude>
                     <exclude>META-INF/native/libnetty_tcnative_osx_x86_64.jnilib</exclude>
+                  </excludes>
+                </filter>
+                <filter>
+                  <artifact>io.netty:netty-all</artifact>
+                  <excludes>
+                    <exclude>META-INF/native/libnetty_resolver_dns_native_macos_x86_64.jnilib</exclude>
+                    <exclude>META-INF/native/libnetty_transport_native_kqueue_x86_64.jnilib</exclude>
+                    <exclude>META-INF/native/libnetty_transport_native_epoll_x86_64.so</exclude>
+                    <exclude>META-INF/native/libnetty_transport_native_epoll_aarch_64.so</exclude>
+                    <exclude>META-INF/native/libnetty_resolver_dns_native_macos_x86_64.jnilib</exclude>
                   </excludes>
                 </filter>
               </filters>
