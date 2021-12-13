@@ -84,7 +84,6 @@
     <guava.version>28.2-jre</guava.version>
     <io.opencensus.version>0.21.0</io.opencensus.version>
     <junit.version>4.13</junit.version>
-    <log4j.version>1.2.17</log4j.version>
     <slf4j.version>1.7.30</slf4j.version>
 
     <ratis.thirdparty.shaded.prefix>org.apache.ratis.thirdparty</ratis.thirdparty.shaded.prefix>
@@ -155,11 +154,6 @@
         <groupId>io.opencensus</groupId>
         <artifactId>opencensus-contrib-grpc-metrics</artifactId>
         <version>${io.opencensus.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>${log4j.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
