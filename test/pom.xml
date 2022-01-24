@@ -26,6 +26,13 @@
   <description>Miscellaneous tests for Apache Ratis Thirdparty Jar</description>
   <url>https://github.com/apache/ratis-thirdparty</url>
 
+  <properties>
+    <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
+
+    <junit.version>4.13.2</junit.version>
+    <slf4j.version>1.7.33</slf4j.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.ratis</groupId>
@@ -34,19 +41,18 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
   </dependencies>
 
@@ -58,6 +64,25 @@
         <version>${os-maven-plugin.version}</version>
       </extension>
     </extensions>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.xolstice.maven.plugins</groupId>
+          <artifactId>protobuf-maven-plugin</artifactId>
+          <version>${protobuf-maven-plugin.version}</version>
+          <configuration>
+            <protocArtifact>
+              com.google.protobuf:protoc:${shaded.protobuf.version}:exe:${os.detected.classifier}
+            </protocArtifact>
+            <!-- Place these in a location that compiler-plugin is already looking -->
+            <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
+            <!-- With multiple executions, this must be `false` otherwise we wipe out the previous execution -->
+            <clearOutputDirectory>false</clearOutputDirectory>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.xolstice.maven.plugins</groupId>

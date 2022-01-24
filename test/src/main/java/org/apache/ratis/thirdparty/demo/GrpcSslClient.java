@@ -17,7 +17,6 @@
  */
 package org.apache.ratis.thirdparty.demo;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ratis.thirdparty.io.grpc.ManagedChannel;
 import org.apache.ratis.thirdparty.io.grpc.ManagedChannelBuilder;
 import org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException;
@@ -84,7 +83,7 @@ public class GrpcSslClient {
       return response.getMessage();
     } catch (StatusRuntimeException e) {
       LOG.warn("RPC failed: {0}", e.getStatus(), e);
-      return StringUtils.EMPTY;
+      return "";
     }
   }
 }
