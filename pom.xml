@@ -17,7 +17,7 @@
   <parent>
     <groupId>org.apache</groupId>
     <artifactId>apache</artifactId>
-    <version>21</version>
+    <version>23</version>
     <relativePath /> <!-- resolve from repository -->
   </parent>
   <artifactId>ratis-thirdparty</artifactId>
@@ -30,7 +30,6 @@
   <inceptionYear>2017</inceptionYear>
   <modules>
     <module>misc</module>
-    <module>test</module>
   </modules>
   <licenses>
     <license>
@@ -67,7 +66,6 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <java.min.version>${maven.compiler.source}</java.min.version>
     <maven.min.version>3.3.9</maven.min.version>
-    <protobuf-maven-plugin.version>0.5.1</protobuf-maven-plugin.version>
 
     <!--Version of protobuf to be shaded -->
     <shaded.protobuf.version>3.19.2</shaded.protobuf.version>
@@ -81,10 +79,8 @@
     <!-- third party library versions -->
     <commons-lang3.version>3.8.1</commons-lang3.version>
     <gson.version>2.8.2</gson.version>
-    <guava.version>28.2-jre</guava.version>
+    <guava.version>31.0.1-jre</guava.version>
     <io.opencensus.version>0.21.0</io.opencensus.version>
-    <junit.version>4.13</junit.version>
-    <slf4j.version>1.7.30</slf4j.version>
 
     <ratis.thirdparty.shaded.prefix>org.apache.ratis.thirdparty</ratis.thirdparty.shaded.prefix>
     <ratis.thirdparty.shaded.native.prefix>org_apache_ratis_thirdparty_</ratis.thirdparty.shaded.native.prefix>
@@ -154,29 +150,6 @@
         <groupId>io.opencensus</groupId>
         <artifactId>opencensus-contrib-grpc-metrics</artifactId>
         <version>${io.opencensus.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>${commons-lang3.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-        <version>${slf4j.version}</version>
-      </dependency>
-
-      <!-- Test only dependencies -->
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -275,20 +248,6 @@
           <groupId>org.apache.felix</groupId>
           <artifactId>maven-bundle-plugin</artifactId>
           <version>${maven-bundle-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.xolstice.maven.plugins</groupId>
-          <artifactId>protobuf-maven-plugin</artifactId>
-          <version>${protobuf-maven-plugin.version}</version>
-          <configuration>
-            <protocArtifact>
-              com.google.protobuf:protoc:${shaded.protobuf.version}:exe:${os.detected.classifier}
-            </protocArtifact>
-            <!-- Place these in a location that compiler-plugin is already looking -->
-            <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
-            <!-- With multiple executions, this must be `false` otherwise we wipe out the previous execution -->
-            <clearOutputDirectory>false</clearOutputDirectory>
-          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -419,6 +378,13 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+
+    <profile>
+      <id>test</id>
+      <modules>
+        <module>test</module>
+      </modules>
     </profile>
   </profiles>
 </project>
