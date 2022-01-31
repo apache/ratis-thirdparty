@@ -48,7 +48,12 @@ public class GrpcSslTest {
             true,
             false);
     GrpcSslServer server = new GrpcSslServer(port, sslServerConf);
-    server.start();
+    try {
+      server.start();
+    } catch (Throwable t) {
+      LOG.error("error starting server", t);
+      throw t;
+    }
 
     Thread serverThread = new Thread(() -> {
       try {

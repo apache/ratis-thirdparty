@@ -173,6 +173,7 @@
                     <exclude>META-INF/native/libnetty_tcnative_linux_aarch_64.so</exclude>
                     <exclude>META-INF/native/libnetty_tcnative_linux_x86_64.so</exclude>
                     <exclude>META-INF/native/netty_tcnative_windows_x86_64.dll</exclude>
+                    <exclude>META-INF/native/libnetty_tcnative_osx_aarch_64.jnilib</exclude>
                     <exclude>META-INF/native/libnetty_tcnative_osx_x86_64.jnilib</exclude>
                   </excludes>
                 </filter>
@@ -283,6 +284,10 @@
                 <fileSet>
                   <sourceFile>${project.build.directory}/classes/META-INF/native/netty_tcnative_windows_x86_64.dll</sourceFile>
                   <destinationFile>${project.build.directory}/classes/META-INF/native/${ratis.thirdparty.shaded.native.prefix}netty_tcnative_windows_x86_64.dll</destinationFile>
+                </fileSet>
+                <fileSet>
+                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_tcnative_osx_aarch_64.jnilib</sourceFile>
+                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_tcnative_osx_aarch_64.jnilib</destinationFile>
                 </fileSet>
                 <fileSet>
                   <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_tcnative_osx_x86_64.jnilib</sourceFile>
