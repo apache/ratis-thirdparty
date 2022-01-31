@@ -50,7 +50,23 @@
     </dependency>
     <dependency>
       <groupId>io.netty</groupId>
-      <artifactId>netty-all</artifactId>
+      <artifactId>netty-resolver-dns-native-macos</artifactId>
+      <classifier>osx-x86_64</classifier>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-native-epoll</artifactId>
+      <classifier>linux-aarch_64</classifier>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-native-epoll</artifactId>
+      <classifier>linux-x86_64</classifier>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-native-kqueue</artifactId>
+      <classifier>osx-x86_64</classifier>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -161,13 +177,22 @@
                   </excludes>
                 </filter>
                 <filter>
-                  <artifact>io.netty:netty-all</artifact>
+                  <artifact>io.netty:netty-resolver-dns-native-macos</artifact>
                   <excludes>
                     <exclude>META-INF/native/libnetty_resolver_dns_native_macos_x86_64.jnilib</exclude>
-                    <exclude>META-INF/native/libnetty_transport_native_kqueue_x86_64.jnilib</exclude>
+                  </excludes>
+                </filter>
+                <filter>
+                  <artifact>io.netty:netty-transport-native-epoll</artifact>
+                  <excludes>
                     <exclude>META-INF/native/libnetty_transport_native_epoll_x86_64.so</exclude>
                     <exclude>META-INF/native/libnetty_transport_native_epoll_aarch_64.so</exclude>
-                    <exclude>META-INF/native/libnetty_resolver_dns_native_macos_x86_64.jnilib</exclude>
+                  </excludes>
+                </filter>
+                <filter>
+                  <artifact>io.netty:netty-transport-native-kqueue</artifact>
+                  <excludes>
+                    <exclude>META-INF/native/libnetty_transport_native_kqueue_x86_64.jnilib</exclude>
                   </excludes>
                 </filter>
               </filters>
@@ -181,17 +206,9 @@
                   <exclude>com.google.code.findbugs:jsr305</exclude>
                   <exclude>com.google.errorprone:error_prone_annotations</exclude>
                   <exclude>com.google.j2objc:j2objc-annotations</exclude>
-                  <!-- Specifying netty-all gets all of these -->
-                  <exclude>io.netty:netty-buffer</exclude>
-                  <exclude>io.netty:netty-codec-http2</exclude>
-                  <exclude>io.netty:netty-codec-http</exclude>
+                  <!-- Transitive stuff we don't need from netty -->
                   <exclude>io.netty:netty-codec-socks</exclude>
-                  <exclude>io.netty:netty-codec</exclude>
-                  <exclude>io.netty:netty-common</exclude>
                   <exclude>io.netty:netty-handler-proxy</exclude>
-                  <exclude>io.netty:netty-handler</exclude>
-                  <exclude>io.netty:netty-resolver</exclude>
-                  <exclude>io.netty:netty-transport</exclude>
                   <!-- Transitive stuff we don't need coming from google deps -->
                   <exclude>org.codehaus.mojo:animal-sniffer-annotations</exclude>
                 </excludes>
@@ -219,7 +236,12 @@
             </goals>
             <configuration>
               <includeGroupIds>io.netty</includeGroupIds>
-              <includeArtifactIds>netty-tcnative-boringssl-static, netty-all</includeArtifactIds>
+              <includeArtifactIds>
+                netty-resolver-dns-native-macos,
+                netty-tcnative-boringssl-static,
+                netty-transport-native-epoll,
+                netty-transport-native-kqueue
+              </includeArtifactIds>
               <includes>**/META-INF/native/*</includes>
               <outputDirectory>${project.build.directory}/classes/</outputDirectory>
               <overWriteReleases>true</overWriteReleases>
