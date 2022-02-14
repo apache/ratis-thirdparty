@@ -35,7 +35,7 @@ jobs:
         with:
           java-version: 8
       - name: Run a full build
-        run: mvn -Ptest clean verify
+        run: mvn --no-transfer-progress -Ptest clean verify
       - name: Delete temporary build artifacts
         run: rm -rf ~/.m2/repository/org/apache/ratis
         if: always()
