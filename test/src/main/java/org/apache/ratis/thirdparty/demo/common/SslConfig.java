@@ -15,33 +15,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.ratis.thirdparty.demo;
+package org.apache.ratis.thirdparty.demo.common;
 
-import org.apache.ratis.thirdparty.com.google.common.collect.Lists;
-
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class GrpcSslConfig {
+public class SslConfig {
   // TODO: allow configure cipher suites
-  private final List<String> tlsCipherSuitesWithEncryption = Lists.newArrayList(
+  private final List<String> tlsCipherSuitesWithEncryption = Collections.unmodifiableList(Arrays.asList(
       "TLS_RSA_WITH_AES_128_GCM_SHA256",
       "TLS_RSA_WITH_AES_128_CBC_SHA",
-      "SSL_RSA_WITH_3DES_EDE_CBC_SHA");
+      "SSL_RSA_WITH_3DES_EDE_CBC_SHA"));
 
   // "RSA" in this case refers to the key exchange algorithm,
   // "SHA" refers to the message digest algorithm to provide integrity
   // "NULL" is the encryption algorithm, to disable encryption.
-  // TODO: suppot NULL cipher from tcnative
-  private final List<String> tlsCipherSuitesNoEncryption = Lists
-      .newArrayList("TLS_RSA_WITH_AES_128_GCM_SHA256");
+  // TODO: support NULL cipher from tcnative
+  private final List<String> tlsCipherSuitesNoEncryption = Collections.singletonList("TLS_RSA_WITH_AES_128_GCM_SHA256");
 
-  private Boolean encryption;
+  private final boolean encryption;
 
-  protected GrpcSslConfig(Boolean encryption) {
+  protected SslConfig(boolean encryption) {
     this.encryption = encryption;
   }
 
-  public Boolean encryptionEnabled() {
+  public boolean encryptionEnabled() {
     return encryption;
   }
 

@@ -15,12 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.ratis.thirdparty.demo;
+package org.apache.ratis.thirdparty.demo.grpc;
 
+import org.apache.ratis.thirdparty.demo.common.SslServerConfig;
 import org.apache.ratis.thirdparty.io.grpc.Server;
-import org.apache.ratis.thirdparty.io.grpc.ServerBuilder;
-import java.io.IOException;
-
 import org.apache.ratis.thirdparty.io.grpc.netty.GrpcSslContexts;
 import org.apache.ratis.thirdparty.io.grpc.netty.NettyServerBuilder;
 import org.apache.ratis.thirdparty.io.netty.handler.ssl.ClientAuth;
@@ -28,20 +26,21 @@ import org.apache.ratis.thirdparty.io.netty.handler.ssl.SslContextBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 import static org.apache.ratis.thirdparty.io.netty.handler.ssl.SslProvider.OPENSSL;
 
 /**
  * gRPC Demo SSL server with shaded ratis thirdparty jar.
  */
 public class GrpcSslServer {
-  private static final Logger LOG =
-      LoggerFactory.getLogger(GrpcServer.class.getName());
+  private static final Logger LOG = LoggerFactory.getLogger(GrpcServer.class);
 
   private Server server;
   private int port;
-  private GrpcSslServerConfig conf;
+  private final SslServerConfig conf;
 
-  public GrpcSslServer(int port, GrpcSslServerConfig conf) {
+  public GrpcSslServer(int port, SslServerConfig conf) {
     this.port = port;
     this.conf = conf;
   }
@@ -78,12 +77,6 @@ public class GrpcSslServer {
   private void stop() {
     if (server != null) {
       server.shutdown();
-    }
-  }
-
-  void blockUntilShutdown() throws InterruptedException {
-    if (server != null) {
-      server.awaitTermination();
     }
   }
 }
