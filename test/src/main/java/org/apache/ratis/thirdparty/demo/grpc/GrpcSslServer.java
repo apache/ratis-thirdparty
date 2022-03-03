@@ -18,10 +18,10 @@
 package org.apache.ratis.thirdparty.demo.grpc;
 
 import org.apache.ratis.thirdparty.demo.common.SslServerConfig;
+import org.apache.ratis.thirdparty.demo.netty.NettyUtils;
 import org.apache.ratis.thirdparty.io.grpc.Server;
 import org.apache.ratis.thirdparty.io.grpc.netty.GrpcSslContexts;
 import org.apache.ratis.thirdparty.io.grpc.netty.NettyServerBuilder;
-import org.apache.ratis.thirdparty.io.netty.handler.ssl.ClientAuth;
 import org.apache.ratis.thirdparty.io.netty.handler.ssl.SslContextBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,20 +48,9 @@ public class GrpcSslServer {
   void start() throws IOException {
     NettyServerBuilder nettyServerBuilder =
         NettyServerBuilder.forPort(port).addService(new GreeterImpl());
-    SslContextBuilder sslContextBuilder = SslContextBuilder.forServer(
-        conf.getServerCertChain(), conf.getPrivateKey());
-    if (conf.isMutualAuthn()) {
-      sslContextBuilder.clientAuth(ClientAuth.REQUIRE);
-      sslContextBuilder.trustManager(conf.getClientCertChain());
-    }
+    SslContextBuilder sslContextBuilder = NettyUtils.newServerSslContextBuilder(conf);
     sslContextBuilder =
         GrpcSslContexts.configure(sslContextBuilder, OPENSSL);
-    if (conf.encryptionEnabled()) {
-      sslContextBuilder.ciphers(conf.getTlsCipherSuitesWithEncryption());
-    } else {
-      sslContextBuilder.ciphers(conf.getTlsCipherSuitesNoEncryption());
-    }
-
     nettyServerBuilder.sslContext(sslContextBuilder.build());
 
     server = nettyServerBuilder.build().start();
