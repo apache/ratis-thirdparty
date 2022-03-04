@@ -15,8 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.ratis.thirdparty.demo;
+package org.apache.ratis.thirdparty.demo.grpc;
 
+import org.apache.ratis.thirdparty.demo.common.SslClientConfig;
+import org.apache.ratis.thirdparty.demo.common.SslServerConfig;
+import org.apache.ratis.thirdparty.demo.common.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -24,29 +27,17 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
 
 public class GrpcSslTest {
   private final static Logger LOG = LoggerFactory.getLogger(GrpcSslTest.class);
 
-  private int port = 50005;
-
-  private File getResource(String name) {
-    ClassLoader classLoader = getClass().getClassLoader();
-
-    File file = new File(classLoader.getResource(name).getFile());
-    LOG.info("Getting Resource: {}\n", file.getAbsolutePath());
-    return file;
-  }
 
   @Test
   public void testSslClientServer() throws InterruptedException, IOException {
-    GrpcSslServerConfig sslServerConf =
-        new GrpcSslServerConfig(
-            getResource("ssl/server.pem"),
-            getResource("ssl/server.crt"),
-            getResource("ssl/client.crt"),
-            true,
-            false);
+    final int port = TestUtils.randomPort();
+    final SslServerConfig sslServerConf = TestUtils.newSslServerConfig(true, false);
     GrpcSslServer server = new GrpcSslServer(port, sslServerConf);
     try {
       server.start();
@@ -55,21 +46,7 @@ public class GrpcSslTest {
       throw t;
     }
 
-    Thread serverThread = new Thread(() -> {
-      try {
-        server.blockUntilShutdown();
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-      }
-    });
-    serverThread.start();
-
-    GrpcSslClientConfig sslClientConfig = new GrpcSslClientConfig(
-        getResource("ssl/client.pem"),
-        getResource("ssl/ca.crt"),
-        getResource("ssl/client.crt"),
-        true,
-        false);
+    final SslClientConfig sslClientConfig = TestUtils.newSslClientConfig(true, false);
 
     GrpcSslClient client = new GrpcSslClient(
         "localhost", port, sslClientConfig);

@@ -15,8 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.ratis.thirdparty.demo;
+package org.apache.ratis.thirdparty.demo.grpc;
 
+import org.apache.ratis.thirdparty.demo.proto.GreeterGrpc;
+import org.apache.ratis.thirdparty.demo.proto.HelloReply;
+import org.apache.ratis.thirdparty.demo.proto.HelloRequest;
 import org.apache.ratis.thirdparty.io.grpc.stub.StreamObserver;
 
 class GreeterImpl extends GreeterGrpc.GreeterImplBase {

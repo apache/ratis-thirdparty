@@ -18,7 +18,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "org.apache.ratis.thirdparty.demo";
+option java_package = "org.apache.ratis.thirdparty.demo.proto";
 option java_outer_classname = "HelloProto";
 
 package org.apache.ratis.thirdparty.demo;

@@ -15,24 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.ratis.thirdparty.demo;
+package org.apache.ratis.thirdparty.demo.common;
 
 import java.io.File;
 
-public class GrpcSslServerConfig extends GrpcSslConfig {
-  private File privateKey;
-  private File serverCertChain;
+public class SslServerConfig extends SslConfig {
+  private final File privateKey;
+  private final File serverCertChain;
   // Only needed for mTLS
-  private Boolean mutualAuthn;
-  private File clientCertChain;
+  private final boolean mutualAuthn;
+  private final File clientCertChain;
 
-  private Boolean encryption;
-
-  public GrpcSslServerConfig(File privateKey,
-                             File serverCertChain,
-                             File clientCertChain,
-                             Boolean mutualAuthn,
-                             Boolean encryption) {
+  public SslServerConfig(File privateKey, File serverCertChain, File clientCertChain,
+      boolean mutualAuthn, boolean encryption) {
     super(encryption);
     this.privateKey = privateKey;
     this.serverCertChain = serverCertChain;
@@ -52,7 +47,7 @@ public class GrpcSslServerConfig extends GrpcSslConfig {
     return clientCertChain;
   }
 
-  public Boolean isMutualAuthn() {
+  public boolean isMutualAuthn() {
     return mutualAuthn && clientCertChain!= null;
   }
 

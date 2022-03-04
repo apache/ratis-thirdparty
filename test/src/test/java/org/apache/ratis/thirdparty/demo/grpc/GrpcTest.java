@@ -15,8 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.ratis.thirdparty.demo;
+package org.apache.ratis.thirdparty.demo.grpc;
 
+import org.apache.ratis.thirdparty.demo.common.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,19 +36,11 @@ public class GrpcTest {
   private final static Logger LOG = LoggerFactory.getLogger(GrpcTest.class);
   @Test
   public void testClientServer() throws IOException, InterruptedException {
-    GrpcServer server = new GrpcServer(50001);
+    final int port = TestUtils.randomPort();
+    final GrpcServer server = new GrpcServer(port);
     server.start();
 
-    Thread serverThread = new Thread(() -> {
-      try {
-        server.blockUntilShutdown();
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-      }
-    });
-    serverThread.start();
-
-    GrpcClient client = new GrpcClient("localhost", 50001);
+    final GrpcClient client = new GrpcClient("localhost", port);
     try {
       /* Access a service running on the local machine on port 50051 */
       String user = "testuser";

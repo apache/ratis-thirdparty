@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.ratis.thirdparty.demo;
+package org.apache.ratis.thirdparty.demo.grpc;
 
 import org.apache.ratis.thirdparty.io.grpc.Server;
 import org.apache.ratis.thirdparty.io.grpc.ServerBuilder;
@@ -27,8 +27,7 @@ import org.slf4j.LoggerFactory;
  * gRPC Demo server with shaded ratis thirdparty jar.
  */
 public class GrpcServer {
-  private static final Logger LOG =
-      LoggerFactory.getLogger(GrpcServer.class.getName());
+  private static final Logger LOG = LoggerFactory.getLogger(GrpcServer.class);
 
   private Server server;
   private int port;
