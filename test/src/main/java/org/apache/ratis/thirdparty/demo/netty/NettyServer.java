@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Closeable;
 
 /**
- * gRPC Demo server with shaded ratis thirdparty jar.
+ * Netty demo server with shaded ratis thirdparty jar.
  */
 public class NettyServer implements Closeable {
   private static final Logger LOG = LoggerFactory.getLogger(NettyServer.class);

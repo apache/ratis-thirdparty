@@ -42,7 +42,7 @@ import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * gRPC Demo server with shaded ratis thirdparty jar.
+ * Netty demo server with shaded ratis thirdparty jar.
  */
 public class NettyClient implements Closeable {
   private static final Logger LOG = LoggerFactory.getLogger(NettyClient.class);
