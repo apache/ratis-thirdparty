@@ -17,6 +17,7 @@
  */
 package org.apache.ratis.thirdparty.demo.grpc;
 
+import org.apache.ratis.thirdparty.demo.netty.NettyUtils;
 import org.apache.ratis.thirdparty.demo.proto.GreeterGrpc;
 import org.apache.ratis.thirdparty.demo.proto.HelloReply;
 import org.apache.ratis.thirdparty.demo.proto.HelloRequest;
@@ -27,7 +28,6 @@ import org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.ratis.thirdparty.io.grpc.netty.GrpcSslContexts;
 import org.apache.ratis.thirdparty.io.grpc.netty.NettyChannelBuilder;
 import org.apache.ratis.thirdparty.io.netty.handler.ssl.SslContextBuilder;
 import org.slf4j.Logger;
@@ -53,18 +53,7 @@ public class GrpcSslClient {
     // Hacky way to work around hostname verify of the certificate
     //channelBuilder.overrideAuthority(
     //    InetAddress.getLocalHost().getHostName()) ;
-    SslContextBuilder sslContextBuilder = GrpcSslContexts.forClient();
-    if (conf.getTrustCertCollection() != null) {
-      sslContextBuilder.trustManager(conf.getTrustCertCollection());
-    }
-    if (conf.isMutualAuthn()) {
-      sslContextBuilder.keyManager(conf.getCertChain(), conf.getPrivateKey());
-    }
-    if (conf.encryptionEnabled()) {
-      sslContextBuilder.ciphers(conf.getTlsCipherSuitesWithEncryption());
-    } else {
-      sslContextBuilder.ciphers(conf.getTlsCipherSuitesNoEncryption());
-    }
+    SslContextBuilder sslContextBuilder = NettyUtils.newClientSslContextBuilder(conf);
     return channelBuilder.useTransportSecurity()
         .sslContext(sslContextBuilder.build()).build();
   }
