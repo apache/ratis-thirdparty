@@ -73,6 +73,8 @@
     <shaded.grpc.version>1.44.0</shaded.grpc.version>
     <!--Version of Netty to be shaded -->
     <shaded.netty.version>4.1.77.Final</shaded.netty.version>
+    <!--Version of dropwizard to be shaded -->
+    <shaded.dropwizard.version>4.2.9</shaded.dropwizard.version>
 
     <!-- third party library versions -->
     <commons-lang3.version>3.8.1</commons-lang3.version>
