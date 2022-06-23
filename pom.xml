@@ -73,6 +73,9 @@
     <shaded.grpc.version>1.44.0</shaded.grpc.version>
     <!--Version of Netty to be shaded -->
     <shaded.netty.version>4.1.77.Final</shaded.netty.version>
+    <!--Version of dropwizard to be shaded -->
+    <shaded.dropwizard.version>4.2.9</shaded.dropwizard.version>
+    <shaded.dropwizard.ganglia.version>3.2.6</shaded.dropwizard.ganglia.version>
 
     <!-- third party library versions -->
     <commons-lang3.version>3.8.1</commons-lang3.version>
@@ -145,6 +148,27 @@
         <groupId>io.opencensus</groupId>
         <artifactId>opencensus-contrib-grpc-metrics</artifactId>
         <version>${io.opencensus.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.dropwizard.metrics</groupId>
+        <artifactId>metrics-core</artifactId>
+        <version>${shaded.dropwizard.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.dropwizard.metrics</groupId>
+        <artifactId>metrics-jvm</artifactId>
+        <version>${shaded.dropwizard.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.dropwizard.metrics</groupId>
+        <artifactId>metrics-jmx</artifactId>
+        <version>${shaded.dropwizard.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.dropwizard.metrics</groupId>
+        <artifactId>metrics-ganglia</artifactId>
+        <version>${shaded.dropwizard.ganglia.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
