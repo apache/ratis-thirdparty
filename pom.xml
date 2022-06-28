@@ -113,6 +113,11 @@
         <version>${shaded.protobuf.version}</version>
       </dependency>
       <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java-util</artifactId>
+        <version>${shaded.protobuf.version}</version>
+      </dependency>
+      <dependency>
         <groupId>io.grpc</groupId>
         <artifactId>grpc-netty</artifactId>
         <version>${shaded.grpc.version}</version>
