@@ -126,10 +126,6 @@
               <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
               <relocations>
                 <relocation>
-                  <pattern>com.google.api</pattern>
-                  <shadedPattern>${ratis.thirdparty.shaded.prefix}.com.google.api</shadedPattern>
-                </relocation>
-                <relocation>
                   <pattern>com.google.cloud.audit</pattern>
                   <shadedPattern>${ratis.thirdparty.shaded.prefix}.com.google.cloud.audit</shadedPattern>
                 </relocation>
@@ -242,6 +238,10 @@
                   <exclude>io.netty:netty-handler-proxy</exclude>
                   <!-- Transitive stuff we don't need coming from google deps -->
                   <exclude>org.codehaus.mojo:animal-sniffer-annotations</exclude>
+                  <exclude>org.slf4j:slf4j-api</exclude>
+                  <exclude>io.perfmark:perfmark-api</exclude>
+                  <exclude>org.acplt:oncrpc</exclude>
+                  <exclude>com.google.api.grpc:proto-google-common-protos</exclude>
                 </excludes>
               </artifactSet>
               <!-- Pick up any LICENSE/NOTICE files from our dependencies -->
