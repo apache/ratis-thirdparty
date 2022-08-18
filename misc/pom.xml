@@ -239,7 +239,6 @@
                   <!-- Transitive stuff we don't need coming from google deps -->
                   <exclude>org.codehaus.mojo:animal-sniffer-annotations</exclude>
                   <exclude>org.slf4j:slf4j-api</exclude>
-                  <exclude>io.perfmark:perfmark-api</exclude>
                   <exclude>org.acplt:oncrpc</exclude>
                   <exclude>com.google.api.grpc:proto-google-common-protos</exclude>
                 </excludes>
