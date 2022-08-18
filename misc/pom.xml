@@ -194,6 +194,10 @@
                   <pattern>info.ganglia</pattern>
                   <shadedPattern>${ratis.thirdparty.shaded.prefix}.info.ganglia</shadedPattern>
                 </relocation>
+                <relocation>
+                  <pattern>io.perfmark</pattern>
+                  <shadedPattern>${ratis.thirdparty.shaded.prefix}.io.perfmark</shadedPattern>
+                </relocation>
               </relocations>
               <filters>
                 <!-- Filter unshaded netty_tcnative libs -->
