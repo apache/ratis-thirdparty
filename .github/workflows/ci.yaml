@@ -36,7 +36,9 @@ jobs:
           distribution: 'temurin'
           java-version: 8
       - name: Run a full build
-        run: mvn --no-transfer-progress -Ptest -Prelease clean verify
+        run: mvn --no-transfer-progress -Ptest -Prelease clean install
+      - name: Check build reproducibility
+        run: mvn --no-transfer-progress -Ptest -Prelease -DskipTests clean verify artifact:compare
       - name: Delete temporary build artifacts
         run: rm -rf ~/.m2/repository/org/apache/ratis
         if: always()

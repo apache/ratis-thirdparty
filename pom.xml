@@ -48,6 +48,7 @@
     <url>http://issues.apache.org/jira/browse/RATIS</url>
   </issueManagement>
   <properties>
+    <project.build.outputTimestamp>2024-06-25T12:34:56Z</project.build.outputTimestamp>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- Maven plugin versions -->
@@ -59,6 +60,7 @@
     <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
     <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
     <maven-replacer-plugin.version>1.5.3</maven-replacer-plugin.version>
+    <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
     <native-maven-plugin.version>1.0-alpha-8</native-maven-plugin.version>
     <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
 
@@ -219,6 +221,11 @@
             <!--Defer to the ratis-assembly sub-module.  It does all assembly-->
             <skipAssembly>true</skipAssembly>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>${maven-shade-plugin.version}</version>
         </plugin>
         <!-- Make a jar and put the sources in the jar.
         In the parent pom, so submodules will do the right thing. -->
