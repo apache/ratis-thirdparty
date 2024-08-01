@@ -231,7 +231,6 @@
                   <exclude>com.google.j2objc:j2objc-annotations</exclude>
                   <!-- Transitive stuff we don't need from netty -->
                   <exclude>io.netty:netty-codec-socks</exclude>
-                  <exclude>io.netty:netty-handler-proxy</exclude>
                   <!-- Transitive stuff we don't need coming from google deps -->
                   <exclude>org.codehaus.mojo:animal-sniffer-annotations</exclude>
                   <exclude>org.slf4j:slf4j-api</exclude>
