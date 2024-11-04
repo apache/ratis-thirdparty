@@ -22,7 +22,7 @@
   </parent>
   <artifactId>ratis-thirdparty</artifactId>
   <groupId>org.apache.ratis</groupId>
-  <version>1.0.7-SNAPSHOT</version>
+  <version>1.0.7</version>
   <name>Apache Ratis Thirdparty</name>
   <packaging>pom</packaging>
   <description>Thirdparty dependencies for Apache Ratis</description>
@@ -48,7 +48,7 @@
     <url>http://issues.apache.org/jira/browse/RATIS</url>
   </issueManagement>
   <properties>
-    <project.build.outputTimestamp>2024-06-25T12:34:56Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2024-11-04T06:26:36Z</project.build.outputTimestamp>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- Maven plugin versions -->
