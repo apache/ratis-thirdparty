@@ -90,7 +90,7 @@ git archive --format=tar.gz --output="${archivedir}/${artifactid}-${version}-src
 
 # Build and install Ratis-Thirdparty for the eventual mvn-deploy
 # No "bin tarball"
-mvnFun install -DskipTests -Papache-release
+mvnFun install -DskipTests -Papache-release -Prelease
 
 echo
 echo "Generated artifacts successfully."
@@ -105,9 +105,9 @@ echo '  for i in *.tar.gz; do echo $i; gpg --armor --output $i.asc --detach-sig 
 echo
 echo "Check the content deployed to maven."
 echo "If good, close the repo and record links of temporary staging repo"
-echo "  ${mvn} deploy -DskipTests -Papache-release -Dmaven.repo.local=${repodir}"
+echo "  ${mvn} deploy -DskipTests -Papache-release -Prelease -Dmaven.repo.local=${repodir}"
 echo
-echo "If all good tag the RC"
+echo "If all good tag the RC and publish to git"
 echo
 echo "Finally, you may want to remove archive dir and repo dir"
 echo "  rm -rf ${archivedir}"
