@@ -73,9 +73,9 @@
     <!--Version of protobuf to be shaded -->
     <shaded.protobuf.version>3.25.5</shaded.protobuf.version>
     <!--Version of grpc to be shaded -->
-    <shaded.grpc.version>1.69.0</shaded.grpc.version>
+    <shaded.grpc.version>1.71.0</shaded.grpc.version>
     <!--Version of Netty to be shaded -->
-    <shaded.netty.version>4.1.115.Final</shaded.netty.version>
+    <shaded.netty.version>4.1.119.Final</shaded.netty.version>
     <!--Version of dropwizard to be shaded -->
     <shaded.dropwizard.version>4.2.21</shaded.dropwizard.version>
 
