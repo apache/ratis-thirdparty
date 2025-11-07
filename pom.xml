@@ -78,6 +78,8 @@
     <shaded.netty.version>4.1.127.Final</shaded.netty.version>
     <!--Version of dropwizard to be shaded -->
     <shaded.dropwizard.version>4.2.21</shaded.dropwizard.version>
+    <!--Version of spotbugs to be shaded -->
+    <shaded.spotbugs.version>4.8.6</shaded.spotbugs.version>
 
     <!-- third party library versions -->
     <commons-lang3.version>3.8.1</commons-lang3.version>
@@ -171,6 +173,11 @@
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-jmx</artifactId>
         <version>${shaded.dropwizard.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-annotations</artifactId>
+        <version>${shaded.spotbugs.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
