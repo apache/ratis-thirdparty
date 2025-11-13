@@ -17,7 +17,7 @@
   <parent>
     <groupId>org.apache</groupId>
     <artifactId>apache</artifactId>
-    <version>23</version>
+    <version>35</version>
     <relativePath /> <!-- resolve from repository -->
   </parent>
   <artifactId>ratis-thirdparty</artifactId>
@@ -56,11 +56,7 @@
     <cyclonedx.version>2.8.0</cyclonedx.version>
     <exec-maven-plugin.version>1.3.1</exec-maven-plugin.version>
     <maven-bundle-plugin.version>2.5.3</maven-bundle-plugin.version>
-    <maven-checkstyle-plugin.version>2.15</maven-checkstyle-plugin.version>
-    <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
-    <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
     <maven-replacer-plugin.version>1.5.3</maven-replacer-plugin.version>
-    <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
     <native-maven-plugin.version>1.0-alpha-8</native-maven-plugin.version>
     <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
 
@@ -181,7 +177,6 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>${maven-javadoc-plugin.version}</version>
           <configuration>
             <additionalJOptions>
               <additionalJOption>-Xmaxwarns</additionalJOption>
@@ -221,26 +216,6 @@
             <!--Defer to the ratis-assembly sub-module.  It does all assembly-->
             <skipAssembly>true</skipAssembly>
           </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-shade-plugin</artifactId>
-          <version>${maven-shade-plugin.version}</version>
-        </plugin>
-        <!-- Make a jar and put the sources in the jar.
-        In the parent pom, so submodules will do the right thing. -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>attach-sources</id>
-              <phase>prepare-package</phase>
-              <goals>
-                <goal>jar-no-fork</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -334,11 +309,6 @@
         <inherited>true</inherited>
         <extensions>true</extensions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${maven-checkstyle-plugin.version}</version>
-      </plugin>
     </plugins>
   </build>
   <profiles>
@@ -352,7 +322,7 @@
             <executions>
               <execution>
                 <!-- builds source jars and attaches them to the project for publishing -->
-                <id>ratis-java-sources</id>
+                <id>attach-sources</id> <!-- override execution from maven-apache-parent POM -->
                 <phase>package</phase>
                 <goals>
                   <goal>jar-no-fork</goal>
