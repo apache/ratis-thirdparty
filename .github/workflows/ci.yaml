@@ -16,8 +16,12 @@
 name: ci
 
 on:
-  - push
-  - pull_request
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+    tags:
+      - '**'
+  pull_request:
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || case(github.repository == 'apache/ratis-thirdparty', github.sha, github.ref_name) }}
@@ -27,8 +31,8 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     if: github.event_name == 'pull_request'
-      || (github.repository == 'apache/ratis-thirdparty' && !startsWith(github.ref_name, 'dependabot'))
-      || (github.repository != 'apache/ratis-thirdparty' && github.ref_name != 'master')
+      || github.repository == 'apache/ratis-thirdparty'
+      || github.ref_name != 'master'
     steps:
       - name: Checkout project
         uses: actions/checkout@v6
