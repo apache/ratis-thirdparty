@@ -27,8 +27,8 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     if: github.event_name == 'pull_request'
-      || github.repository == 'apache/ratis-thirdparty'
-      || github.ref_name != 'master'
+      || (github.repository == 'apache/ratis-thirdparty' && !startsWith(github.ref_name, 'dependabot'))
+      || (github.repository != 'apache/ratis-thirdparty' && github.ref_name != 'master')
     steps:
       - name: Checkout project
         uses: actions/checkout@v6
