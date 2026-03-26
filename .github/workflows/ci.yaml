@@ -16,8 +16,12 @@
 name: ci
 
 on:
-  - push
-  - pull_request
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+    tags:
+      - '**'
+  pull_request:
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || case(github.repository == 'apache/ratis-thirdparty', github.sha, github.ref_name) }}
