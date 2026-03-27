@@ -32,3 +32,6 @@ updates:
       cronjob: "15 8 * * *"
     cooldown:
       default-days: 4
+    ignore:
+      - dependency-name: "com.google.protobuf:protobuf-java"
+        update-types: ["version-update:semver-major"]
