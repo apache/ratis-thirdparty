@@ -77,7 +77,7 @@
     <!-- third party library versions -->
     <gson.version>2.13.2</gson.version>
     <guava.version>33.5.0-jre</guava.version>
-    <io.opencensus.version>0.21.0</io.opencensus.version>
+    <io.opencensus.version>0.31.1</io.opencensus.version>
 
     <ratis.thirdparty.shaded.prefix>org.apache.ratis.thirdparty</ratis.thirdparty.shaded.prefix>
     <ratis.thirdparty.shaded.native.prefix>org_apache_ratis_thirdparty_</ratis.thirdparty.shaded.native.prefix>
