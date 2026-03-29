@@ -80,14 +80,6 @@
       <groupId>io.netty</groupId>
       <artifactId>netty-tcnative-boringssl-static</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.opencensus</groupId>
-      <artifactId>opencensus-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.opencensus</groupId>
-      <artifactId>opencensus-contrib-grpc-metrics</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>io.dropwizard.metrics</groupId>
@@ -160,10 +152,6 @@
                 <relocation>
                   <pattern>io.netty</pattern>
                   <shadedPattern>${ratis.thirdparty.shaded.prefix}.io.netty</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>io.opencensus</pattern>
-                  <shadedPattern>${ratis.thirdparty.shaded.prefix}.io.opencensus</shadedPattern>
                 </relocation>
                 <relocation>
                   <pattern>com.google.gson</pattern>
