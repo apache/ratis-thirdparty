@@ -60,6 +60,9 @@
     <maven-replacer-plugin.version>1.5.3</maven-replacer-plugin.version>
     <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
 
+    <!-- set in parent POM, but only for JDK9+ -->
+    <maven.compiler.release>${javaVersion}</maven.compiler.release>
+
     <!--Version of protobuf to be shaded -->
     <shaded.protobuf.version>3.25.8</shaded.protobuf.version>
     <!--Version of grpc to be shaded -->
@@ -243,19 +246,6 @@
     </plugins>
   </build>
   <profiles>
-    <profile>
-      <id>maven-compiler-release</id>
-      <activation>
-        <property>
-          <name>!maven.compiler.release</name>
-        </property>
-      </activation>
-      <properties>
-        <!-- parent POM sets maven.compiler.release only for JDK9+ -->
-        <maven.compiler.release>${javaVersion}</maven.compiler.release>
-      </properties>
-    </profile>
-
     <profile>
       <id>release</id>
       <build>
