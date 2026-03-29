@@ -60,11 +60,6 @@
     <maven-replacer-plugin.version>1.5.3</maven-replacer-plugin.version>
     <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
 
-    <!-- define the Java language version used by the compiler -->
-    <maven.compiler.release>8</maven.compiler.release>
-    <!-- override maven.compiler.target=8 defined in parent POM 35; can be removed on upgrade to 36+ -->
-    <maven.compiler.target>${maven.compiler.release}</maven.compiler.target>
-
     <!--Version of protobuf to be shaded -->
     <shaded.protobuf.version>3.25.8</shaded.protobuf.version>
     <!--Version of grpc to be shaded -->
