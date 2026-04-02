@@ -42,12 +42,11 @@ jobs:
         with:
           persist-credentials: false
       - name: Cache for Maven dependencies
-        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
         with:
           path: ~/.m2/repository
-          key: maven-repo-${{ hashFiles('**/pom.xml') }}-${{ github.job }}
+          key: maven-repo-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            maven-repo-${{ hashFiles('**/pom.xml') }}
             maven-repo-
       - name: Setup Java
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
