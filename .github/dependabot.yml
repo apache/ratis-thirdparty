@@ -23,7 +23,7 @@ updates:
       interval: "cron"
       cronjob: "15 7 * * *"
     cooldown:
-      default-days: 4
+      default-days: 7
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
@@ -31,7 +31,7 @@ updates:
       interval: "cron"
       cronjob: "15 8 * * *"
     cooldown:
-      default-days: 4
+      default-days: 7
     ignore:
       - dependency-name: "com.google.protobuf:protobuf-java"
         update-types: ["version-update:semver-major"]
