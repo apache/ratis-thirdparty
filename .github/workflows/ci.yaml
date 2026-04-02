@@ -41,13 +41,11 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-      - name: Cache for Maven dependencies
-        uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+      - name: Restore Maven repo
+        uses: apache/infrastructure-actions/stash/restore@2245ffcb262ea1723462729b032d1d5c71290dfc
         with:
           path: ~/.m2/repository
-          key: maven-repo-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            maven-repo-
+          key: maven-repo
       - name: Setup Java
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
@@ -64,3 +62,9 @@ jobs:
       - name: Delete temporary build artifacts
         run: rm -rf ~/.m2/repository/org/apache/ratis
         if: always()
+      - name: Save Maven repo
+        uses: apache/infrastructure-actions/stash/save@2245ffcb262ea1723462729b032d1d5c71290dfc
+        with:
+          path: ~/.m2/repository
+          key: maven-repo
+          retention-days: 90
