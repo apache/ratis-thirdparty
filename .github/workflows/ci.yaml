@@ -32,6 +32,7 @@ permissions: { }
 jobs:
   build:
     runs-on: ubuntu-24.04
+    environment: org
     if: github.event_name == 'pull_request'
       || github.repository == 'apache/ratis-thirdparty'
       || github.ref_name != 'master'
