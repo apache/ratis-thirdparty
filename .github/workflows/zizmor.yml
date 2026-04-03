@@ -13,25 +13,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-version: 2
+name: zizmor
 
-updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      # 'daily' only runs on weekdays
-      interval: "cron"
-      cronjob: "15 7 * * *"
-    cooldown:
-      default-days: 7
-  - package-ecosystem: "maven"
-    directory: "/"
-    schedule:
-      # 'daily' only runs on weekdays
-      interval: "cron"
-      cronjob: "15 8 * * *"
-    cooldown:
-      default-days: 7
-    ignore:
-      - dependency-name: "com.google.protobuf:protobuf-java"
-        update-types: ["version-update:semver-major"]
+on:
+  push:
+  pull_request:
+
+permissions: { }
+
+jobs:
+  zizmor:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+    - name: Checkout project
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+        persist-credentials: false
+
+    - name: Run zizmor
+      uses: zizmorcore/zizmor-action@71321a20a9ded102f6e9ce5718a2fcec2c4f70d8 # v0.5.2
