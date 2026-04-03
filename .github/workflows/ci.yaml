@@ -27,25 +27,27 @@ concurrency:
   group: ci-${{ github.event.pull_request.number || case(github.repository == 'apache/ratis-thirdparty', github.sha, github.ref_name) }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' || github.repository != 'apache/ratis-thirdparty' }}
 
+permissions: { }
+
 jobs:
   build:
     runs-on: ubuntu-24.04
+    environment: org # see https://issues.apache.org/jira/browse/INFRA-27775
     if: github.event_name == 'pull_request'
       || github.repository == 'apache/ratis-thirdparty'
       || github.ref_name != 'master'
     steps:
       - name: Checkout project
-        uses: actions/checkout@v6
-      - name: Cache for Maven dependencies
-        uses: actions/cache@v5
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Restore Maven repo
+        uses: apache/infrastructure-actions/stash/restore@2245ffcb262ea1723462729b032d1d5c71290dfc
         with:
           path: ~/.m2/repository
-          key: maven-repo-${{ hashFiles('**/pom.xml') }}-${{ github.job }}
-          restore-keys: |
-            maven-repo-${{ hashFiles('**/pom.xml') }}
-            maven-repo-
+          key: maven-repo
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'temurin'
           java-version: 8
@@ -60,3 +62,9 @@ jobs:
       - name: Delete temporary build artifacts
         run: rm -rf ~/.m2/repository/org/apache/ratis
         if: always()
+      - name: Save Maven repo
+        uses: apache/infrastructure-actions/stash/save@2245ffcb262ea1723462729b032d1d5c71290dfc
+        with:
+          path: ~/.m2/repository
+          key: maven-repo
+          retention-days: 90

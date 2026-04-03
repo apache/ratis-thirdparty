@@ -17,7 +17,7 @@
   <parent>
     <groupId>org.apache.ratis</groupId>
     <artifactId>ratis-thirdparty</artifactId>
-    <version>1.0.12-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ratis-thirdparty-misc</artifactId>
   <name>Apache Ratis Thirdparty Miscellaneous</name>
@@ -79,14 +79,6 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-tcnative-boringssl-static</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.opencensus</groupId>
-      <artifactId>opencensus-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.opencensus</groupId>
-      <artifactId>opencensus-contrib-grpc-metrics</artifactId>
     </dependency>
 
     <dependency>
@@ -160,10 +152,6 @@
                 <relocation>
                   <pattern>io.netty</pattern>
                   <shadedPattern>${ratis.thirdparty.shaded.prefix}.io.netty</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>io.opencensus</pattern>
-                  <shadedPattern>${ratis.thirdparty.shaded.prefix}.io.opencensus</shadedPattern>
                 </relocation>
                 <relocation>
                   <pattern>com.google.gson</pattern>
