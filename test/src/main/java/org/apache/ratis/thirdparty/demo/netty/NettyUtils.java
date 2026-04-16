@@ -48,6 +48,7 @@ public interface NettyUtils {
       b.clientAuth(ClientAuth.REQUIRE);
       b.trustManager(conf.getClientCertChain());
     }
+    b.endpointIdentificationAlgorithm(null);
     if (conf.encryptionEnabled()) {
       b.ciphers(conf.getTlsCipherSuitesWithEncryption());
     } else {
@@ -64,6 +65,7 @@ public interface NettyUtils {
     if (conf.isMutualAuthn()) {
       b.keyManager(conf.getCertChain(), conf.getPrivateKey());
     }
+    b.endpointIdentificationAlgorithm(null);
     if (conf.encryptionEnabled()) {
       b.ciphers(conf.getTlsCipherSuitesWithEncryption());
     } else {
