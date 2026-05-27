@@ -33,5 +33,5 @@ updates:
     cooldown:
       default-days: 7
     ignore:
-      - dependency-name: "com.google.protobuf:protobuf-java"
+      - dependency-name: "com.google.protobuf:*"
         update-types: ["version-update:semver-major"]
