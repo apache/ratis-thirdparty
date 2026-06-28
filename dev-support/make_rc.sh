@@ -28,23 +28,21 @@
 set -e
 
 # Set mvn and mvnopts
-mvn=mvn
-if [ "$MAVEN" != "" ]; then
-  mvn="${MAVEN}"
-fi
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source "${DIR}/find_maven.sh"
 mvnopts="-Xmx1g"
 if [ "$MAVEN_OPTS" != "" ]; then
   mvnopts="${MAVEN_OPTS}"
 fi
 
 mvnGet() {
-  ${mvn} -q -Dexec.executable="echo" -Dexec.args="\${${1}}" --non-recursive \
+  ${MVN} -q -Dexec.executable="echo" -Dexec.args="\${${1}}" --non-recursive \
     org.codehaus.mojo:exec-maven-plugin:1.6.0:exec 2>/dev/null
 }
 
 mvnFun() {
   set -x
-  MAVEN_OPTS="${mvnopts}" ${mvn} -Dmaven.repo.local=${repodir} $@
+  MAVEN_OPTS="${mvnopts}" ${MVN} -Dmaven.repo.local=${repodir} $@
   set +x
 }
 
@@ -105,7 +103,7 @@ echo '  for i in *.tar.gz; do echo $i; gpg --armor --output $i.asc --detach-sig 
 echo
 echo "Check the content deployed to maven."
 echo "If good, close the repo and record links of temporary staging repo"
-echo "  ${mvn} deploy -DskipTests -Papache-release -Prelease -Dmaven.repo.local=${repodir}"
+echo "  ${MVN} deploy -DskipTests -Papache-release -Prelease -Dmaven.repo.local=${repodir}"
 echo
 echo "If all good tag the RC and publish to git"
 echo
