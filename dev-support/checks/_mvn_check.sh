@@ -14,11 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Inputs:
+# - CHECK: name of the check, used for output dir
+# - arguments: passed to mvn
+
 set -u -o pipefail
 
-CHECK="$( basename "${BASH_SOURCE[0]}" | cut -f1 -d'.' )"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd "$DIR/../.." || exit 1
 
-MAVEN_OPTIONS='-Dmaven.javadoc.skip=true -DskipTests'
+source "${DIR}/../find_maven.sh"
 
-source "${DIR}/_mvn_check.sh" verify artifact:compare "$@"
+: ${MAVEN_OPTIONS:=""}
+
+REPORT_DIR="${OUTPUT_DIR:-"${DIR}/../../target/${CHECK}"}"
+mkdir -p "$REPORT_DIR"
+
+export MAVEN_OPTS="-Xmx4096m"
+${MVN} --batch-mode --show-version ${MAVEN_OPTIONS} "$@" \
+  | tee "${REPORT_DIR}/output.log"
+exit $?

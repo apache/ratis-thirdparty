@@ -14,19 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -o pipefail
+set -u -o pipefail
 
+CHECK="$( basename "${BASH_SOURCE[0]}" | cut -f1 -d'.' )"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-cd "$DIR/../.." || exit 1
 
-source "${DIR}/../find_maven.sh"
+MAVEN_OPTIONS='-Dmaven.javadoc.skip=true -DskipTests'
 
-MAVEN_OPTIONS='-V -B -Dmaven.javadoc.skip=true -DskipTests'
-
-REPORT_DIR=${OUTPUT_DIR:-"$DIR/../../target/build"}
-mkdir -p "$REPORT_DIR"
-
-export MAVEN_OPTS="-Xmx4096m"
-${MVN} ${MAVEN_OPTIONS} install "$@" \
-  | tee "${REPORT_DIR}/output.log"
-exit $?
+source "${DIR}/_mvn_check.sh" install "$@"
