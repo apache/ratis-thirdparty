@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This workflow defines events and conditions to execute CI.
+
 name: ci
 
 on:

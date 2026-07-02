@@ -16,7 +16,7 @@
 # This reusable workflow executes a single check from `dev-support/checks/`.
 # Before and after the check, it performs various steps based on workflow inputs.
 
-name: ci-check
+name: reusable-check
 
 on:
   workflow_call:
