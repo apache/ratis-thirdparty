@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -13,29 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This workflow defines events and conditions to execute CI.
+# Inputs:
+# - CHECK: name of the check, used for output dir
+# - arguments: passed to mvn
 
-name: ci
+set -u -o pipefail
 
-on:
-  push:
-    branches-ignore:
-      - 'dependabot/**'
-    tags:
-      - '**'
-  pull_request:
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd "$DIR/../.." || exit 1
 
-concurrency:
-  group: ci-${{ github.event.pull_request.number || case(github.repository == 'apache/ratis-thirdparty', github.sha, github.ref_name) }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.repository != 'apache/ratis-thirdparty' }}
+source "${DIR}/../find_maven.sh"
 
-permissions: { }
+: ${MAVEN_OPTIONS:=""}
 
-jobs:
-  CI:
-    if: github.event_name == 'pull_request'
-      || github.repository == 'apache/ratis-thirdparty'
-      || github.ref_name != 'master'
-    uses: ./.github/workflows/reusable-ci.yaml
-    secrets:
-      DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+REPORT_DIR="${OUTPUT_DIR:-"${DIR}/../../target/${CHECK}"}"
+mkdir -p "$REPORT_DIR"
+
+export MAVEN_OPTS="-Xmx4096m"
+${MVN} --batch-mode --show-version ${MAVEN_OPTIONS} "$@" \
+  | tee "${REPORT_DIR}/output.log"
+exit $?

@@ -13,29 +13,47 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This workflow defines events and conditions to execute CI.
+# This reusable workflow defines CI.
 
-name: ci
+name: reusable-ci
 
 on:
-  push:
-    branches-ignore:
-      - 'dependabot/**'
-    tags:
-      - '**'
-  pull_request:
-
-concurrency:
-  group: ci-${{ github.event.pull_request.number || case(github.repository == 'apache/ratis-thirdparty', github.sha, github.ref_name) }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.repository != 'apache/ratis-thirdparty' }}
+  workflow_call:
+    secrets:
+      DEVELOCITY_ACCESS_KEY:
+        description: 'Token for submitting build scan to Develocity'
+        required: false
 
 permissions: { }
 
 jobs:
-  CI:
-    if: github.event_name == 'pull_request'
-      || github.repository == 'apache/ratis-thirdparty'
-      || github.ref_name != 'master'
-    uses: ./.github/workflows/reusable-ci.yaml
+  build:
+    uses: ./.github/workflows/reusable-check.yaml
+    with:
+      script: build
+      script-args: -Prelease
+    secrets:
+      DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+
+  test:
+    needs:
+      - build
+    uses: ./.github/workflows/reusable-check.yaml
+    with:
+      needs-maven-repo: true
+      script: unit
+      script-args: -pl test
+    secrets:
+      DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+
+  repro:
+    needs:
+      - build
+    uses: ./.github/workflows/reusable-check.yaml
+    with:
+      needs-maven-repo: true
+      script: repro
+      script-args: -Prelease
+      post-failure: dev-support/checks/_diffoscope.sh
     secrets:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}

@@ -1,0 +1,159 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# This reusable workflow executes a single check from `dev-support/checks/`.
+# Before and after the check, it performs various steps based on workflow inputs.
+
+name: reusable-check
+
+on:
+  workflow_call:
+    inputs:
+      # REQUIRED
+      script:
+        type: string
+        description: "Test script to run from dev-support/checks, without .sh extension"
+        required: true
+
+      # OPTIONAL (ordered alphabetically)
+      java-version:
+        type: string
+        description: "Java version to set up (default: 17)"
+        default: '17'
+        required: false
+
+      needs-maven-repo:
+        type: boolean
+        description: "Whether to download jars created by build (default: no)"
+        default: false
+        required: false
+
+      post-failure:
+        type: string
+        description: "Command to execute after the test script, if it failed (default: none)"
+        default: ''
+        required: false
+
+      runner:
+        type: string
+        description: "GitHub Actions runner to use"
+        default: 'ubuntu-24.04'
+        required: false
+
+      script-args:
+        type: string
+        description: "Arguments for the test script"
+        default: ''
+        required: false
+
+      split:
+        type: string
+        description: "Name of split for matrix jobs, only used in display name"
+        default: ''
+        required: false
+
+      timeout-minutes:
+        type: number
+        description: "Job timeout in minutes (default: 30)"
+        default: 30
+        required: false
+
+    secrets:
+      DEVELOCITY_ACCESS_KEY:
+        description: 'Token for submitting build scan to Develocity'
+        required: false
+
+env:
+  MAVEN_ARGS: --batch-mode --show-version
+  MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.http.retryHandler.class=standard -Dmaven.wagon.http.retryHandler.count=3
+  SCRIPT: ${{ inputs.script }}
+
+jobs:
+  check:
+    name: ${{ (inputs.split && format('{0} ({1})', inputs.script, inputs.split)) || inputs.script }}
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: Restore Maven repo
+        uses: apache/infrastructure-actions/stash/restore@2245ffcb262ea1723462729b032d1d5c71290dfc
+        with:
+          path: ~/.m2/repository
+          key: maven-repo
+
+      - name: Download Maven repo
+        id: download-maven-repo
+        if: ${{ inputs.needs-maven-repo }}
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: ratis-repo
+          path: |
+            ~/.m2/repository/org/apache/ratis
+
+      - name: Setup java ${{ inputs.java-version }}
+        if: ${{ inputs.java-version }}
+        uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
+        with:
+          distribution: 'temurin'
+          java-version: ${{ inputs.java-version }}
+
+      - name: Execute tests
+        run: |
+          $COMMAND
+        env:
+          COMMAND: dev-support/checks/${{ inputs.script }}.sh ${{ inputs.script-args }}
+          DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+
+      - name: Execute post-failure steps
+        if: ${{ failure() && inputs.post-failure }}
+        run: |
+          $COMMAND
+        env:
+          COMMAND: ${{ inputs.post-failure }}
+
+      - name: Archive build results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ${{ (inputs.split && format('{0}-{1}', inputs.script, inputs.split)) || inputs.script }}
+          path: target/${{ inputs.script }}
+        continue-on-error: true
+
+      # The following steps are hard-coded to be run only for 'build' check,
+      # to avoid the need for more inputs.
+      - name: Store Maven repo for tests
+        if: ${{ inputs.script == 'build' && !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ratis-repo
+          path: |
+            ~/.m2/repository/org/apache/ratis
+          retention-days: 1
+
+      - name: Delete temporary build artifacts
+        if: always()
+        run: rm -rf ~/.m2/repository/org/apache/ratis
+
+      - name: Save Maven repo
+        if: ${{ inputs.script == 'build' && !cancelled() }}
+        uses: apache/infrastructure-actions/stash/save@2245ffcb262ea1723462729b032d1d5c71290dfc
+        with:
+          path: ~/.m2/repository
+          key: maven-repo
+          retention-days: 90
