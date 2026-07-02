@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -13,29 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This workflow defines events and conditions to execute CI.
+set -u -o pipefail
 
-name: ci
+CHECK="$( basename "${BASH_SOURCE[0]}" | cut -f1 -d'.' )"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-on:
-  push:
-    branches-ignore:
-      - 'dependabot/**'
-    tags:
-      - '**'
-  pull_request:
+MAVEN_OPTIONS='-Dmaven.javadoc.skip=true -DskipTests'
 
-concurrency:
-  group: ci-${{ github.event.pull_request.number || case(github.repository == 'apache/ratis-thirdparty', github.sha, github.ref_name) }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.repository != 'apache/ratis-thirdparty' }}
-
-permissions: { }
-
-jobs:
-  CI:
-    if: github.event_name == 'pull_request'
-      || github.repository == 'apache/ratis-thirdparty'
-      || github.ref_name != 'master'
-    uses: ./.github/workflows/reusable-ci.yaml
-    secrets:
-      DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+source "${DIR}/_mvn_check.sh" install "$@"
