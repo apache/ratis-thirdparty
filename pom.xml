@@ -17,7 +17,7 @@
   <parent>
     <groupId>org.apache</groupId>
     <artifactId>apache</artifactId>
-    <version>38</version>
+    <version>39</version>
     <relativePath /> <!-- resolve from repository -->
   </parent>
   <artifactId>ratis-thirdparty</artifactId>
@@ -68,7 +68,7 @@
     <!--Version of grpc to be shaded -->
     <shaded.grpc.version>1.82.1</shaded.grpc.version>
     <!--Version of Netty to be shaded -->
-    <shaded.netty.version>4.2.15.Final</shaded.netty.version>
+    <shaded.netty.version>4.2.16.Final</shaded.netty.version>
     <!--Version of dropwizard to be shaded -->
     <shaded.dropwizard.version>4.2.39</shaded.dropwizard.version>
 
