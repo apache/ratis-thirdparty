@@ -223,15 +223,15 @@ Please choose from available phases (eg. make_rc.sh 1-prepare-src):
 
 The next steps of the release process are not scripted:
 
-   7. Close the staging maven repository at https://repository.apache.org/
+   8. Close the staging maven repository at https://repository.apache.org/
 
-   8. Send out the vote mail to the ratis-dev list
+   9. Send out the vote mail to the dev@ratis.a.o list
 
-   9. Summarize the vote after the given period.
+   10. Summarize the vote after the given period.
 
-   10. (If the vote passed): Move the staged artifacts in svn from the dev area to the dist area.
+   11. (If the vote passed): Move the staged artifacts in svn from the dev area to the dist area.
 
-   11. Publish maven repository at https://repository.apache.org/
+   12. Publish maven repository at https://repository.apache.org/
 
 
 
