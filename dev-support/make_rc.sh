@@ -233,7 +233,15 @@ The next steps of the release process are not scripted:
 
    12. Publish maven repository at https://repository.apache.org/
 
+   13. Update versions in Jira:
+       - mark thirdparty-$RATISVERSION as released
+       - create next patch version
+       - also create next minor version if this is .0 release
+       https://issues.apache.org/jira/plugins/servlet/project-config/RATIS/administer-versions
 
+   14. Add release information to report database: https://reporter.apache.org/addrelease.html?ratis
+
+   15. Update version in pom.xml to the next SNAPSHOT version
 
 
 
