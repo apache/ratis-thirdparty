@@ -36,6 +36,14 @@ mvnGet() {
     org.codehaus.mojo:exec-maven-plugin:exec 2>/dev/null
 }
 
+# Verify year in NOTICE
+declare -i YEAR=$(grep -m1 "^Copyright" NOTICE | sed -e 's/^Copyright [^ ]*\([0-9]\{4\}\) The Apache Software Foundation/\1/')
+declare -i CURRENT_YEAR=$(date +%Y)
+if [[ $YEAR != $CURRENT_YEAR ]]; then
+  echo "Please update year in NOTICE from $YEAR to $CURRENT_YEAR, and commit the file"
+  exit 1
+fi
+
 if [[ -z "${RATISVERSION:-}" ]]; then
   echo "Please set the RATISVERSION environment variable (eg. export RATISVERSION=0.3.0)"
   exit 1
