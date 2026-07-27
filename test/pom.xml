@@ -29,7 +29,7 @@
   <properties>
     <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
 
-    <junit-bom.version>5.14.4</junit-bom.version>
+    <junit-bom.version>6.1.2</junit-bom.version>
     <slf4j.version>2.0.18</slf4j.version>
   </properties>
 
