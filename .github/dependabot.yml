@@ -35,3 +35,6 @@ updates:
     ignore:
       - dependency-name: "com.google.protobuf:*"
         update-types: ["version-update:semver-major"]
+      # requires Java 17
+      - dependency-name: "org.junit:junit-bom"
+        versions: [">=6.0.0"]
