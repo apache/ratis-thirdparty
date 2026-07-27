@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -18,22 +18,20 @@
 package org.apache.ratis.thirdparty.demo.grpc;
 
 import org.apache.ratis.thirdparty.demo.common.TestUtils;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Unit test for demo gRPC client/server with ratis thirdparty.
  */
-@RunWith(JUnit4.class)
 public class GrpcTest {
-
   private final static Logger LOG = LoggerFactory.getLogger(GrpcTest.class);
+
   @Test
   public void testClientServer() throws IOException, InterruptedException {
     final int port = TestUtils.randomPort();
@@ -46,7 +44,7 @@ public class GrpcTest {
       String user = "testuser";
       String response = client.greet(user);
       LOG.info("Greet result: {}", response);
-      Assert.assertEquals("Hello " + user, response);
+      assertEquals("Hello " + user, response);
     } finally {
       client.shutdown();
     }

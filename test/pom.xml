@@ -29,21 +29,39 @@
   <properties>
     <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
 
-    <junit.version>4.13.2</junit.version>
+    <junit-bom.version>5.14.4</junit-bom.version>
     <slf4j.version>2.0.18</slf4j.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit-bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
       <groupId>org.apache.ratis</groupId>
       <artifactId>ratis-thirdparty-misc</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>

@@ -22,8 +22,7 @@ import org.apache.ratis.thirdparty.demo.common.SslServerConfig;
 import org.apache.ratis.thirdparty.demo.common.TestUtils;
 import org.apache.ratis.thirdparty.io.netty.buffer.ByteBuf;
 import org.apache.ratis.thirdparty.io.netty.handler.ssl.SslContext;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for demo netty client/server with ratis thirdparty.
@@ -70,7 +71,7 @@ public class NettySslTest {
         final CompletableFuture<String> future = replyFutures.get(i);
         final String reply = future.get(3, TimeUnit.SECONDS);
         LOG.info(reply);
-        Assert.assertEquals(NettyServer.toReply(words[i]), reply);
+        assertEquals(NettyServer.toReply(words[i]), reply);
       }
     }
   }

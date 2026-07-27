@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -18,15 +18,13 @@
 package org.apache.ratis.thirdparty.demo.proto;
 
 import org.apache.ratis.thirdparty.com.google.protobuf.util.JsonFormat;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for ensure that protobuf-java-util is properly shaded as ratis thirdparty.
  */
-@RunWith(JUnit4.class)
 public class ProtoUtilTest {
 
     @Test
@@ -36,7 +34,7 @@ public class ProtoUtilTest {
         final String expected = "{\n" +
             "  \"name\": \"ratis\"\n" +
             "}";
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
 }
