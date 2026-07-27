@@ -46,6 +46,14 @@ jobs:
     secrets:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
 
+  release:
+    uses: ./.github/workflows/reusable-check.yaml
+    with:
+      script: release
+      timeout-minutes: 30
+    secrets:
+      DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+
   repro:
     needs:
       - build
