@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -20,19 +20,16 @@ package org.apache.ratis.thirdparty.demo.grpc;
 import org.apache.ratis.thirdparty.demo.common.SslClientConfig;
 import org.apache.ratis.thirdparty.demo.common.SslServerConfig;
 import org.apache.ratis.thirdparty.demo.common.TestUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GrpcSslTest {
   private final static Logger LOG = LoggerFactory.getLogger(GrpcSslTest.class);
-
 
   @Test
   public void testSslClientServer() throws InterruptedException, IOException {
@@ -55,7 +52,7 @@ public class GrpcSslTest {
       String user = "testuser";
       String response = client.greet(user);
       LOG.info("Greet result: {}", response);
-      Assert.assertEquals("Hello " + user, response);
+      assertEquals("Hello " + user, response);
     } finally {
       client.shutdown();
     }
