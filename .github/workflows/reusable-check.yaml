@@ -92,7 +92,7 @@ jobs:
           persist-credentials: false
 
       - name: Restore Maven repo
-        uses: apache/infrastructure-actions/stash/restore@2245ffcb262ea1723462729b032d1d5c71290dfc
+        uses: apache/infrastructure-actions/stash/restore@bc817c8e9ad7d8216aab74223e32ea391e233b2c
         with:
           path: ~/.m2/repository
           key: maven-repo
