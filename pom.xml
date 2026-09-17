@@ -280,6 +280,12 @@
                         of the JDK to properly build from source.  You appear to be using a newer dependency. You can use
                         either "mvn -version" or "mvn enforcer:display-info" to verify what version is active.
                       </message>
+                      <ignoreClasses>
+                        <!-- requires JDK 11, but Netty checks for JDK version at runtime
+                             see https://github.com/netty/netty/commit/95012caf2c3c615bb6d8b7a084bc36a2064b17c8 -->
+                        <ignoreClass>io.netty.util.internal.shaded.org.jctools.queues.varhandle.*</ignoreClass>
+                        <ignoreClass>org.apache.ratis.thirdparty.io.netty.util.internal.shaded.org.jctools.queues.varhandle.*</ignoreClass>
+                      </ignoreClasses>
                     </enforceBytecodeVersion>
                   </rules>
                 </configuration>
