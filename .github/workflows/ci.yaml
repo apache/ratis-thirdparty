@@ -36,6 +36,6 @@ jobs:
     if: github.event_name == 'pull_request'
       || github.repository == 'apache/ratis-thirdparty'
       || github.ref_name != 'master'
-    uses: ./.github/workflows/reusable-ci.yaml
+    uses: $/.github/workflows/reusable-ci.yaml
     secrets:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
