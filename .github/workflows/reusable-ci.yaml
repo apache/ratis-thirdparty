@@ -28,7 +28,7 @@ permissions: { }
 
 jobs:
   build:
-    uses: ./.github/workflows/reusable-check.yaml
+    uses: $/.github/workflows/reusable-check.yaml
     with:
       script: build
       script-args: -Prelease
@@ -38,7 +38,7 @@ jobs:
   test:
     needs:
       - build
-    uses: ./.github/workflows/reusable-check.yaml
+    uses: $/.github/workflows/reusable-check.yaml
     with:
       needs-maven-repo: true
       script: unit
@@ -47,7 +47,7 @@ jobs:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
 
   release:
-    uses: ./.github/workflows/reusable-check.yaml
+    uses: $/.github/workflows/reusable-check.yaml
     with:
       script: release
       timeout-minutes: 30
@@ -57,7 +57,7 @@ jobs:
   repro:
     needs:
       - build
-    uses: ./.github/workflows/reusable-check.yaml
+    uses: $/.github/workflows/reusable-check.yaml
     with:
       needs-maven-repo: true
       script: repro
