@@ -95,6 +95,8 @@ fi
 artifactid=$(mvnGet project.artifactId)
 src_tar="${projectdir}/target/${artifactid}-${RATISVERSION}-src.tar.gz"
 
+WORKINGDIR="${projectdir}/../$(basename "${projectdir}").${RATISVERSION}-${RC}"
+
 mvnFun() {
   MAVEN_OPTS="${mvnopts}" ${MVN} -Dmaven.repo.local="${repodir}" "$@"
 }
@@ -119,7 +121,6 @@ mvnFun() {
 }
 
 2-verify-bin() {
-  WORKINGDIR="${projectdir}/../$(basename "${projectdir}").${RATISVERSION}-${RC}"
   rm -rf "$WORKINGDIR"
   mkdir -p "$WORKINGDIR"
   echo "Extracting source tarball to $(pwd)"
