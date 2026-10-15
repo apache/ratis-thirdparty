@@ -152,7 +152,7 @@ jobs:
 
       - name: Save Maven repo
         if: ${{ inputs.script == 'build' && !cancelled() }}
-        uses: apache/infrastructure-actions/stash/save@61dcea11f19e2bbe1263f14d72235e8da17d3ad0 # save/v1.0.0
+        uses: apache/infrastructure-actions/stash/save@f1a487181effd0b216892001abdfb524442bb24d # save/v1.0.1
         with:
           path: ~/.m2/repository
           key: maven-repo
