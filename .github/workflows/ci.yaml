@@ -23,7 +23,33 @@ on:
       - 'dependabot/**'
     tags:
       - '**'
+    paths-ignore:
+      # ignore files/dirs irrelevant for CI
+      - '.asf.yaml'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'NOTICE'
+      - '**.md'
+      - '**.txt'
+      # ignore .github except this workflow and the ones used transitively
+      - '.github/**'
+      - '!.github/workflows/ci.yaml'
+      - '!.github/workflows/reusable-check.yaml'
+      - '!.github/workflows/reusable-ci.yaml'
   pull_request:
+    paths-ignore:
+      # ignore files/dirs irrelevant for CI
+      - '.asf.yaml'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'NOTICE'
+      - '**.md'
+      - '**.txt'
+      # ignore .github except this workflow and the ones used transitively
+      - '.github/**'
+      - '!.github/workflows/ci.yaml'
+      - '!.github/workflows/reusable-check.yaml'
+      - '!.github/workflows/reusable-ci.yaml'
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || case(github.repository == 'apache/ratis-thirdparty', github.sha, github.ref_name) }}
