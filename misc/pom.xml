@@ -83,6 +83,25 @@
       <classifier>osx-aarch_64</classifier>
     </dependency>
     <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-classes-io_uring</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-native-io_uring</artifactId>
+      <classifier>linux-aarch_64</classifier>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-native-io_uring</artifactId>
+      <classifier>linux-riscv64</classifier>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-native-io_uring</artifactId>
+      <classifier>linux-x86_64</classifier>
+    </dependency>
+    <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
     </dependency>
@@ -218,6 +237,14 @@
                     <exclude>META-INF/native/libnetty_transport_native_kqueue_aarch_64.jnilib</exclude>
                   </excludes>
                 </filter>
+                <filter>
+                  <artifact>io.netty:netty-transport-native-io_uring</artifact>
+                  <excludes>
+                    <exclude>META-INF/native/libnetty_transport_native_io_uring42_aarch_64.so</exclude>
+                    <exclude>META-INF/native/libnetty_transport_native_io_uring42_riscv64.so</exclude>
+                    <exclude>META-INF/native/libnetty_transport_native_io_uring42_x86_64.so</exclude>
+                  </excludes>
+                </filter>
               </filters>
               <artifactSet>
                 <includes>
@@ -265,7 +292,8 @@
                 netty-resolver-dns-native-macos,
                 netty-tcnative-boringssl-static,
                 netty-transport-native-epoll,
-                netty-transport-native-kqueue
+                netty-transport-native-kqueue,
+                netty-transport-native-io_uring
               </includeArtifactIds>
               <includes>**/META-INF/native/*</includes>
               <outputDirectory>${project.build.directory}/classes/</outputDirectory>
@@ -332,6 +360,18 @@
                 <fileSet>
                   <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_transport_native_kqueue_aarch_64.jnilib</sourceFile>
                   <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_transport_native_kqueue_aarch_64.jnilib</destinationFile>
+                </fileSet>
+                <fileSet>
+                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_transport_native_io_uring42_aarch_64.so</sourceFile>
+                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_transport_native_io_uring42_aarch_64.so</destinationFile>
+                </fileSet>
+                <fileSet>
+                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_transport_native_io_uring42_riscv64.so</sourceFile>
+                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_transport_native_io_uring42_riscv64.so</destinationFile>
+                </fileSet>
+                <fileSet>
+                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_transport_native_io_uring42_x86_64.so</sourceFile>
+                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_transport_native_io_uring42_x86_64.so</destinationFile>
                 </fileSet>
               </fileSets>
             </configuration>
