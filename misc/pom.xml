@@ -70,6 +70,11 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-transport-native-epoll</artifactId>
+      <classifier>linux-riscv64</classifier>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-native-epoll</artifactId>
       <classifier>linux-x86_64</classifier>
     </dependency>
     <dependency>
@@ -228,6 +233,7 @@
                   <excludes>
                     <exclude>META-INF/native/libnetty_transport_native_epoll_x86_64.so</exclude>
                     <exclude>META-INF/native/libnetty_transport_native_epoll_aarch_64.so</exclude>
+                    <exclude>META-INF/native/libnetty_transport_native_epoll_riscv64.so</exclude>
                   </excludes>
                 </filter>
                 <filter>
@@ -332,6 +338,10 @@
                 <fileSet>
                   <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_transport_native_epoll_aarch_64.so</sourceFile>
                   <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_transport_native_epoll_aarch_64.so</destinationFile>
+                </fileSet>
+                <fileSet>
+                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_transport_native_epoll_riscv64.so</sourceFile>
+                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_transport_native_epoll_riscv64.so</destinationFile>
                 </fileSet>
                 <fileSet>
                   <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_tcnative_linux_x86_64.so</sourceFile>
