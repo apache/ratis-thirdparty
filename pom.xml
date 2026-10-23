@@ -281,6 +281,9 @@
                         either "mvn -version" or "mvn enforcer:display-info" to verify what version is active.
                       </message>
                       <ignoreClasses>
+                        <!-- Optional io_uring transport requires JDK 9+; Netty checks availability before use. -->
+                        <ignoreClass>io.netty.channel.uring.*</ignoreClass>
+                        <ignoreClass>org.apache.ratis.thirdparty.io.netty.channel.uring.*</ignoreClass>
                         <!-- requires JDK 11, but Netty checks for JDK version at runtime
                              see https://github.com/netty/netty/commit/95012caf2c3c615bb6d8b7a084bc36a2064b17c8 -->
                         <ignoreClass>io.netty.util.internal.shaded.org.jctools.queues.varhandle.*</ignoreClass>
