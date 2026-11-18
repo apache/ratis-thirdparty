@@ -54,16 +54,6 @@
     </dependency>
     <dependency>
       <groupId>io.netty</groupId>
-      <artifactId>netty-resolver-dns-native-macos</artifactId>
-      <classifier>osx-x86_64</classifier>
-    </dependency>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-resolver-dns-native-macos</artifactId>
-      <classifier>osx-aarch_64</classifier>
-    </dependency>
-    <dependency>
-      <groupId>io.netty</groupId>
       <artifactId>netty-transport-native-epoll</artifactId>
       <classifier>linux-aarch_64</classifier>
     </dependency>
@@ -222,13 +212,6 @@
                   </excludes>
                 </filter>
                 <filter>
-                  <artifact>io.netty:netty-resolver-dns-native-macos</artifact>
-                  <excludes>
-                    <exclude>META-INF/native/libnetty_resolver_dns_native_macos_x86_64.jnilib</exclude>
-                    <exclude>META-INF/native/libnetty_resolver_dns_native_macos_aarch_64.jnilib</exclude>
-                  </excludes>
-                </filter>
-                <filter>
                   <artifact>io.netty:netty-transport-native-epoll</artifact>
                   <excludes>
                     <exclude>META-INF/native/libnetty_transport_native_epoll_x86_64.so</exclude>
@@ -295,7 +278,6 @@
             <configuration>
               <includeGroupIds>io.netty</includeGroupIds>
               <includeArtifactIds>
-                netty-resolver-dns-native-macos,
                 netty-tcnative-boringssl-static,
                 netty-transport-native-epoll,
                 netty-transport-native-kqueue,
@@ -323,14 +305,6 @@
             </goals>
             <configuration>
               <fileSets>
-                <fileSet>
-                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_resolver_dns_native_macos_x86_64.jnilib</sourceFile>
-                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_resolver_dns_native_macos_x86_64.jnilib</destinationFile>
-                </fileSet>
-                <fileSet>
-                  <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_resolver_dns_native_macos_aarch_64.jnilib</sourceFile>
-                  <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_resolver_dns_native_macos_aarch_64.jnilib</destinationFile>
-                </fileSet>
                 <fileSet>
                   <sourceFile>${project.build.directory}/classes/META-INF/native/libnetty_tcnative_linux_aarch_64.so</sourceFile>
                   <destinationFile>${project.build.directory}/classes/META-INF/native/lib${ratis.thirdparty.shaded.native.prefix}netty_tcnative_linux_aarch_64.so</destinationFile>
